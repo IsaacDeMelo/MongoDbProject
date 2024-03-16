@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+          
+        }
+        
+        #menu {
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            left: -250px;
+            top: 0;
+            overflow-x: hidden;
+            transition: 0.5s;
+          
+        }
+
+        #menu a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #fff;
+            display: block;
+        }
+
+        #menu a:hover {
+            background-color: #555;
+        }
+
+        #perfil {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: margin-left 0.5s;
+            background-color: rgb(27, 27, 27);
+            border: 2px solid black; 
+            margin: 10px;
+            border-radius: 5px; 
+        }
+
+        #perfil h2 {
+            margin-bottom: 10px;
+        }
+
+        #perfil img {
+            width: 150px;
+            height: 150px;
+            border: 2px solid white; 
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        #conteudo {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.5s;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="menu">
+        <div id="perfil">
+            <h2>Perfil</h2>
+            <img src="<%= currentUser.perfil %>" alt="Foto de Perfil">
+            <p>Nome: <%= currentUser.name %></p>
+        </div>
+        <a href="#">Configurações</a>
+        <a href="#">Sair</a>
+    </div>
+
+    
+
+    <div id="conteudo">
+        <!-- Aqui você pode adicionar o conteúdo que deseja -->
+    </div>
+
+    <script>
+        function abrirMenu() {
+            document.getElementById("menu").style.left = "0";
+            document.getElementById("conteudo").style.marginLeft = "250px";
+        }
+
+        function fecharMenu() {
+            document.getElementById("menu").style.left = "-250px";
+            document.getElementById("conteudo").style.marginLeft= "0";
+        }
+        window.addEventListener('keydown', (e) => {
+            switch (e.key){
+                case "ArrowDown":
+                    abrirMenu();
+                    break
+                case "ArrowUp":
+                    fecharMenu();
+                    break
+            }
+        })
+    </script>
+
+</body>
+</html>
