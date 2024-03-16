@@ -56,6 +56,8 @@ mongoose
     .connect(uri)
     .then(() => {
         console.log('Conectado ao banco!')
-        app.listen(3200)
+        
     })
     .catch((err) => console.log(err));
+
+app.listen(3200);
