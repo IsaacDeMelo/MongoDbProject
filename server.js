@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose')
 const app = express();
 const user = require('./models/user');
+const characters = require('./models/characters');
 let currentUser;
 
 app.set('views', './views')
@@ -40,13 +41,15 @@ app.post('/', async (req, res)  => {
         res.status(500).json({error: error});
     }
 });
-app.get('/home', (req, res) => {
-    res.render('home', { currentUser: currentUser });
+app.get('/home', async (req, res) => {
+    const char = await characters.find({ owner: currentUser.name });
+    console.log(currentUser.name);
+    res.render('home', { currentUser: currentUser, char: char });
 });
 app.get('/register', (req, res) => {
     res.render('register');
 });
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     res.render('login');
 });
 
