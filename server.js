@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const app = express();
 const user = require('./models/user');
 const characters = require('./models/characters');
+const comment = require('./models/comment');
 let currentUser;
 
 app.set('views', './views')
@@ -41,6 +42,23 @@ app.post('/', async (req, res)  => {
         res.status(500).json({error: error});
     }
 });
+app.post('/post', async (req, res)  => {
+    const { name, perfil, text } = req.body;
+    let data = new Date();
+    const newComment = {
+        name: name,
+        perfil: perfil, 
+        text: text,
+        data: `${data.getHours()}:${data.getMinutes()}:${data.getSeconds()} (Horário de Brasília)`
+    }
+    try {
+        await comment.create(newComment);
+        res.redirect('/home');
+    } catch (error){
+        res.status(500).json({error: error});
+    }
+});
+
 app.get('/home', async (req, res) => {
     const char = await characters.find({ owner: currentUser.name });
     console.log(currentUser.name);
@@ -52,7 +70,14 @@ app.get('/register', (req, res) => {
 app.get('/', async (req, res) => {
     res.render('login');
 });
-
+app.get('/getComments', async (req, res) => {
+    try {
+        const comments = await comment.find().lean(); // Busca todos os comentários
+        res.json(comments); // Retorna os comentários como resposta JSON
+    } catch (error) {
+        res.status(500).json({error: error.message}); // Trata erros
+    }
+});
 
 const uri = 'mongodb+srv://iahfm1:dMFYISY7srCDEwpK@cluster0.xklnmes.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 mongoose
