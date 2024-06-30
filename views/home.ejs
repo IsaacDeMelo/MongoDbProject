@@ -113,7 +113,7 @@
                         }
                     });
                 });
-                setTimeout(() => {
+                setInterval(() => {
                     $.get('/getComments', function(data) {
                         $('#comments').empty();
                     data.forEach(function(comment) {
@@ -122,7 +122,7 @@
                     ison = true;
                 }); 
                
-                }, 10);
+                }, 100);
                 
             });
             setTimeout(() => {

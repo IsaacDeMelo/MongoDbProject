@@ -28,7 +28,6 @@
 
     .form-control {
       background-color: #dadada;
-
       color: #000000;
     }
 
@@ -62,10 +61,10 @@
 <body>
   <div style="display: flex; justify-content: center;">
     <img src="https://media.tenor.com/nS-DgiJ8lOIAAAAi/klee-genshin-impact.gif" width="200" style="margin: -10px">
-     </div>
+  </div>
   <div class="container">
     <h1>Cadastro</h1>
-    <form action="/register" method="POST">
+    <form action="/register" method="POST" enctype="multipart/form-data">
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="username" class="form-label">Nome de usuário</label>
@@ -77,8 +76,8 @@
         </div>
       </div>
       <div class="mb-3">
-        <label for="perfil" class="form-label">Imagem de Perfil (URL da web)</label>
-        <input type="text" placeholder="..." name="perfil" class="form-control" id="perfil" autocomplete="off" required>
+        <label for="profileImage" class="form-label">Imagem de Perfil</label>
+        <input type="file" name="profileImage" class="form-control" id="profileImage" accept="image/*" required>
       </div>
       <button type="submit" class="btn btn-primary">Registrar</button>
     </form>
