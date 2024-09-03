@@ -49,7 +49,7 @@ app.post('/', async (req, res)  => {
 // Rota de postagem de comentário
 app.post('/post', async (req, res)  => {
     const { name, text } = req.body;
-    currentUser = await user.findOne({ name: name, password: password });
+    currentUser = await user.findOne({ name: name });
     let data = new Date();
     const newComment = {
         name: name,
