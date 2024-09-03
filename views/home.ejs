@@ -82,7 +82,6 @@
         </div>
         <form>
             <input type="text" name="name" value="<%=currentUser.name%>" hidden>
-            <input type="text" name="perfil" value="<%=currentUser.perfil%>" hidden>
             <input type="text" name="text" placeholder="Digite algo...">
             <input type="submit" value="Enviar">
         </form>
@@ -106,7 +105,11 @@
                             console.log(response); // Manipula a resposta do servidor aqui
                             // Se desejar fazer algo com a resposta, manipule-a aqui
                             $('form')[0].reset(); // Limpa os campos do formulário
-                            document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight - document.getElementById("comments").clientHeight;
+                            setTimeout(() => {
+                                document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight - document.getElementById("comments").clientHeight;
+                            }, 500);
+                            
+                           
                         },
                         error: function(xhr, status, error){
                             console.error(error); // Manipula erros de requisição aqui
@@ -117,9 +120,12 @@
                     $.get('/getComments', function(data) {
                         $('#comments').empty();
                     data.forEach(function(comment) {
-                        $('#comments').append(`<div class="comment" id="comment" style="width: 100%;"><strong style="width: 200px; display: flex; justify-content: left; align-items: center; flex-direction: row;"><img style="width:60px; height:60px; border-radius: 50%; margin: 10px;" src="${comment.perfil}"> ${comment.name} </strong> <code style="margin-bottom: 5px;">${comment.data}</code><strong style="width: 100%;"> ${comment.text}</strong></div>`);
+                        if (comment.perfil){
+                            $('#comments').append(`<div class="comment" id="comment" style="width: 100%;"><strong style="width: 200px; display: flex; justify-content: left; align-items: center; flex-direction: row;"><img style="width:60px; height:60px; border-radius: 50%; margin: 10px; background-image: url(${comment.perfil}); background-size: cover; background-position: center;"> ${comment.name} </strong> <code style="margin-bottom: 5px;">${comment.data}</code><strong style="width: 100%;"> ${comment.text}</strong></div>`);
+                        }
+                        
                     });
-                    ison = true;
+                    
                 }); 
                
                 }, 100);
