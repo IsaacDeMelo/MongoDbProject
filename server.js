@@ -54,7 +54,7 @@ app.post('/post', async (req, res)  => {
         name: name,
         perfil: currentUser.perfil,  
         text: text,
-        data: `Enviado às ${data.getHours()} horas e ${data.getMinutes()} minutos (Horário de Brasília)`
+        data: `Enviado às ${data.getHours() - 3} horas e ${data.getMinutes()} minutos (Horário de Brasília)`
     };
     try {
         await comment.create(newComment);

@@ -1,139 +1,178 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>App</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <style>
-            * {
-                box-sizing: border-box;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                height: 100vh;
-            }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
 
-            form {
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                width: 90%;
-            }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            position: relative;
+        }
 
-            input[type="text"] {
-                width: 100%;
-                padding: 10px;
-                margin: 8px 0;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                box-sizing: border-box;
-            }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
 
-            input[type="submit"] {
-                background-color: #4CAF50;
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                width: 100%;
-            }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
 
-            input[type="submit"]:hover {
-                background-color: #45a049;
-            }
-            .comments {
-                margin-top: 20px;
-                border-top: 1px solid #5a5a5a;
-                padding-top: 10px;
-                height: 80%;
-                width: 90%;
-                overflow-y: scroll;
-                overflow-x: hidden;
-            }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
 
-            .comment {
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                align-items: left;
-                margin-bottom: 10px;
-                padding: 5px;
-                background-color: #f9f9f9;
-                border-radius: 4px;
-            }
-        </style>
-    </head>
+        .comments {
+            margin-top: 20px;
+            border-top: 1px solid #5a5a5a;
+            padding-top: 10px;
+            height: 80%;
+            width: 90%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            transition: height 0.3s;
+        }
 
-    <body>
-        <div class="comments" id="comments">
-            <!-- Comentários serão adicionados dinamicamente aqui -->
-        </div>
-        <form>
-            <input type="text" name="name" value="<%=currentUser.name%>" hidden>
-            <input type="text" name="text" placeholder="Digite algo...">
-            <input type="submit" value="Enviar">
-        </form>
-        <!-- Div para exibir os comentários -->
-        
-    </body>
+        .comment {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: left;
+            margin-bottom: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
 
+        .toggle-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .toggle-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .toggle-btn i {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="subclass" style="width: 100%; height: 90%; display: flex; align-items: center; justify-content: end; flex-direction: column; ">
+    <div class="comments" id="comments">
+        <!-- Comentários serão adicionados dinamicamente aqui -->
+    </div>
+    <button class="toggle-btn" id="toggle-btn">
+        <i class="fas fa-chevron-down" id="toggle-icon"></i>
+    </button>
+    <form>
+        <input type="text" name="name" value="<%=currentUser.name%>" hidden>
+        <input type="text" name="text" placeholder="Digite algo...">
+        <input type="submit" value="Enviar">
+    </form>
+    </div>
     <script>
-        let ison = false;
-        $(document).ready(function(){
-            
-                $('form').submit(function(e){
+        let isCommentsVisible = true;
 
-                    e.preventDefault(); // Impede o envio do formulário padrão
-                    var formData = $(this).serialize(); // Serializa os dados do formulário
-                    $.ajax({
-                        type: 'POST',
-                        url: '/post',
-                        data: formData,
-                        success: function(response){
-                            console.log(response); // Manipula a resposta do servidor aqui
-                            // Se desejar fazer algo com a resposta, manipule-a aqui
-                            $('form')[0].reset(); // Limpa os campos do formulário
-                            setTimeout(() => {
-                                document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight - document.getElementById("comments").clientHeight;
-                            }, 500);
-                            
-                           
-                        },
-                        error: function(xhr, status, error){
-                            console.error(error); // Manipula erros de requisição aqui
+        $(document).ready(function () {
+            $('form').submit(function (e) {
+                e.preventDefault(); // Impede o envio do formulário padrão
+                var formData = $(this).serialize(); // Serializa os dados do formulário
+                $.ajax({
+                    type: 'POST',
+                    url: '/post',
+                    data: formData,
+                    success: function (response) {
+                        console.log(response); // Manipula a resposta do servidor aqui
+                        $('form')[0].reset(); // Limpa os campos do formulário
+                        setTimeout(() => {
+                            document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight - document.getElementById("comments").clientHeight;
+                        }, 500);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error); // Manipula erros de requisição aqui
+                    }
+                });
+            });
+
+            setInterval(() => {
+                $.get('/getComments', function (data) {
+                    $('#comments').empty();
+                    data.forEach(function (comment) {
+                        if (comment.perfil) {
+                            $('#comments').append(`<div class="comment" id="comment" style="width: 100%;"><strong style="width: 200px; display: flex; justify-content: left; align-items: center; flex-direction: row;"><img style="width:60px; height:60px; border-radius: 50%; margin-right: 10px; margin-bottom: 5px; margin-top: 5px; background-image: url(${comment.perfil}); background-size: cover; background-position: center;"> ${comment.name} </strong> <code style="margin-bottom: 5px;">${comment.data}</code><strong style="width: 100%;"> ${comment.text}</strong></div>`);
                         }
                     });
                 });
-                setInterval(() => {
-                    $.get('/getComments', function(data) {
-                        $('#comments').empty();
-                    data.forEach(function(comment) {
-                        if (comment.perfil){
-                            $('#comments').append(`<div class="comment" id="comment" style="width: 100%;"><strong style="width: 200px; display: flex; justify-content: left; align-items: center; flex-direction: row;"><img style="width:60px; height:60px; border-radius: 50%; margin: 10px; background-image: url(${comment.perfil}); background-size: cover; background-position: center;"> ${comment.name} </strong> <code style="margin-bottom: 5px;">${comment.data}</code><strong style="width: 100%;"> ${comment.text}</strong></div>`);
-                        }
-                        
-                    });
-                    
-                }); 
-               
-                }, 100);
-                
+            }, 10);
+
+            $('#toggle-btn').click(function () {
+                if (isCommentsVisible) {
+                    $('.comments').css('height', '0');
+                    $('#toggle-icon').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                    document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight - document.getElementById("comments").clientHeight;
+                } else {
+                    $('.comments').css('height', '80%');
+                    $('#toggle-icon').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                }
+                isCommentsVisible = !isCommentsVisible;
             });
+
             setTimeout(() => {
                 document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight - document.getElementById("comments").clientHeight;
             }, 1000);
+        });
     </script>
+</body>
 
-    </html>
+</html>
