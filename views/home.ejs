@@ -123,6 +123,7 @@
     </div>
     <script>
         let isCommentsVisible = true;
+        let commentsLength = 0;
 
         $(document).ready(function () {
             $('form').submit(function (e) {
@@ -147,6 +148,10 @@
 
             setInterval(() => {
                 $.get('/getComments', function (data) {
+                    if (data.length > commentsLength){
+                        document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight + document.getElementById("comments").clientHeight;
+                        commentsLength = data.length;
+                    } 
                     $('#comments').empty();
                     data.forEach(function (comment) {
                         if (comment.perfil) {
