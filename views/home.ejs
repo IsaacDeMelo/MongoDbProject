@@ -14,7 +14,9 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-image: url('https://i.pinimg.com/736x/e3/5c/4f/e35c4f8dd2ddafb3f4394137a698300b.jpg');
+            background-position: center;
+            background-size: cover;
             margin: 0;
             padding: 0;
             display: flex;
@@ -26,10 +28,13 @@
 
         form {
             background-color: #fff;
-            padding: 20px;
+            padding: 10px;
+            height: 0%;
+            transition: 0.3s all;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             width: 90%;
+            overflow: hidden;
             position: relative;
         }
 
@@ -59,8 +64,9 @@
         .comments {
             margin-top: 20px;
             border-top: 1px solid #5a5a5a;
+            background-color: #f4f4f4;
             padding-top: 10px;
-            height: 80%;
+            height: 0%;
             width: 90%;
             overflow-y: scroll;
             overflow-x: hidden;
@@ -94,7 +100,7 @@
             align-items: center;
             font-size: 24px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 2;
+            z-index: 3;
         }
 
         .toggle-btn:hover {
@@ -104,22 +110,80 @@
         .toggle-btn i {
             margin: 0;
         }
+
+        .container {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 310px;
+            width:340px;
+            z-index: 3;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .screen {
+            
+            width: 170px;
+            height: 182px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 66px;
+        }
+
+        .prize {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            
+        }
+
+        #spinButton {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #spinButton:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 
 <body>
-    <div class="subclass" style="width: 100%; height: 90%; display: flex; align-items: center; justify-content: end; flex-direction: column; ">
-    <div class="comments" id="comments">
-        <!-- Comentários serão adicionados dinamicamente aqui -->
+    <div class="container" style="background-image: url(cassino.png)">
+        
+        <div class="screen">
+            <div class="prize" id="prize">???</div>
+        </div>
+        
     </div>
-    <button class="toggle-btn" id="toggle-btn">
-        <i class="fas fa-chevron-down" id="toggle-icon"></i>
-    </button>
-    <form>
-        <input type="text" name="name" value="<%=currentUser.name%>" hidden>
-        <input type="text" name="text" placeholder="Digite algo...">
-        <input type="submit" value="Enviar">
-    </form>
+    <button id="spinButton">Girar</button>
+    <div class="subclass"
+        style="position: absolute; width: 100%; height: 90%; display: flex; align-items: center; justify-content: end; flex-direction: column; z-index: 1; ">
+        <div class="comments" id="comments">
+            <!-- Comentários serão adicionados dinamicamente aqui -->
+        </div>
+        <button class="toggle-btn" id="toggle-btn">
+            <i class="fas fa-chevron-up" id="toggle-icon"></i>
+        </button>
+        <form id="form">
+            <input type="text" name="name" value="<%=currentUser.name%>" hidden>
+            <input type="text" name="text" placeholder="Digite algo...">
+            <input type="submit" value="Enviar">
+        </form>
     </div>
     <script>
         let isCommentsVisible = true;
@@ -148,10 +212,10 @@
 
             setInterval(() => {
                 $.get('/getComments', function (data) {
-                    if (data.length > commentsLength){
+                    if (data.length > commentsLength) {
                         document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight + document.getElementById("comments").clientHeight;
                         commentsLength = data.length;
-                    } 
+                    }
                     $('#comments').empty();
                     data.forEach(function (comment) {
                         if (comment.perfil) {
@@ -163,12 +227,20 @@
 
             $('#toggle-btn').click(function () {
                 if (isCommentsVisible) {
-                    $('.comments').css('height', '0');
-                    $('#toggle-icon').removeClass('fa-chevron-down').addClass('fa-chevron-up');
-                    document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight - document.getElementById("comments").clientHeight;
-                } else {
                     $('.comments').css('height', '80%');
+                    $('#form').css('height', 'auto');
+                    $('#form').css('padding', '20px');
                     $('#toggle-icon').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                    $('.subclass').css('z-index', 3)
+                } else {
+                    $('.comments').css('height', '0px');
+                    $('#form').css('height', '0%');
+                    $('#form').css('padding', '10px');
+                    $('#toggle-icon').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                    setTimeout(() => {
+                        $('.subclass').css('z-index', 1)
+                    }, 400);
+                    document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight - document.getElementById("comments").clientHeight;
                 }
                 isCommentsVisible = !isCommentsVisible;
             });
@@ -176,6 +248,34 @@
             setTimeout(() => {
                 document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight - document.getElementById("comments").clientHeight;
             }, 1000);
+            document.getElementById('spinButton').addEventListener('click', function () {
+
+                const prizes = ['Carro', 'Viagem', 'Celular', 'Notebook', 'Bicicleta', 'Tablet'];
+                const prizeIndex = Math.floor(Math.random() * prizes.length);
+                const prizeElement = document.getElementById('prize');
+                $('.container').css('background-image', 'url(cassinoON.gif)');
+                setTimeout(() => {
+                    $('.screen').css('background-image', 'url(carregamento.gif)')
+                }, 2000);
+                
+                // Simulando um delay para dar a sensação de suspense
+                /* const suspenseImage = document.createElement('img');
+                suspenseImage.src = "https://media1.tenor.com/m/PMNeSVbYjUsAAAAC/one-piece-gild-tesoro.gif";
+                suspenseImage.alt = 'Girando...';
+                suspenseImage.style.width = '100%';  // Tamanho ajustável
+                suspenseImage.style.height = '100%'; // Tamanho ajustável
+                suspenseImage.style.borderRadius = '10px'; // Tamanho ajustável */
+
+                // Adiciona a imagem ao elemento da premiação
+                prizeElement.textContent = "";
+                //prizeElement.appendChild(suspenseImage);
+                
+                setTimeout(() => {
+                    $('.screen').css('background-image', 'none')
+                    prizeElement.textContent = prizes[prizeIndex];
+                }, 15000);
+            });
+
         });
     </script>
 </body>

@@ -9,6 +9,7 @@ let currentUser; // Variável para manter o usuário logado
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -20,7 +21,8 @@ app.post('/register', async (req, res) => {
             const newUser = {
                 name: name,
                 password: password,
-                perfil: perfil // Armazena o Buffer no campo perfil
+                perfil: perfil, // Armazena o Buffer no campo perfil
+                gems: 0,
             };
             try {
                 await user.create(newUser);
