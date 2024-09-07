@@ -128,7 +128,7 @@
 
         .screen {
             
-            width: 170px;
+            width: 220px;
             height: 182px;
             display: flex;
             justify-content: center;
@@ -141,7 +141,7 @@
         .prize {
             font-size: 2rem;
             font-weight: bold;
-            color: #333;
+            color: #ffffff;
             
         }
 
@@ -149,11 +149,14 @@
             padding: 10px 20px;
             font-size: 1.2rem;
             background-color: #28a745;
+            position: absolute;
+            z-index: 3;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            opacity: 0; 
         }
 
         #spinButton:hover {
@@ -166,7 +169,7 @@
     <div class="container" style="background-image: url(cassino.png)">
         
         <div class="screen">
-            <div class="prize" id="prize">???</div>
+            <div class="prize" id="prize"></div>
         </div>
         
     </div>
@@ -250,7 +253,7 @@
             }, 1000);
             document.getElementById('spinButton').addEventListener('click', function () {
 
-                const prizes = ['Carro', 'Viagem', 'Celular', 'Notebook', 'Bicicleta', 'Tablet'];
+                const prizes = ['HITO HITO NO MI: NIKA'];
                 const prizeIndex = Math.floor(Math.random() * prizes.length);
                 const prizeElement = document.getElementById('prize');
                 $('.container').css('background-image', 'url(cassinoON.gif)');
@@ -273,7 +276,7 @@
                 setTimeout(() => {
                     $('.screen').css('background-image', 'none')
                     prizeElement.textContent = prizes[prizeIndex];
-                }, 15000);
+                }, 20000);
             });
 
         });
