@@ -36,6 +36,7 @@
             width: 90%;
             overflow: hidden;
             position: relative;
+
         }
 
         input[type="text"] {
@@ -63,8 +64,13 @@
 
         .comments {
             margin-top: 20px;
-            border-top: 1px solid #5a5a5a;
-            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            border: 5px solid #5a5a5a;
+            background-color: #d6d6d6;
+            border-radius: 10px;
             padding-top: 10px;
             height: 0%;
             width: 90%;
@@ -118,8 +124,10 @@
             align-items: center;
             flex-direction: column;
             height: 310px;
-            width:340px;
+            width: 340px;
             z-index: 3;
+
+
         }
 
         h1 {
@@ -127,7 +135,6 @@
         }
 
         .screen {
-            
             width: 220px;
             height: 182px;
             display: flex;
@@ -136,13 +143,18 @@
             background-size: cover;
             background-position: center;
             margin-bottom: 66px;
+            background-color: white; 
+            
+            
         }
 
         .prize {
             font-size: 2rem;
             font-weight: bold;
             color: #ffffff;
-            
+            color: black;
+            margin: 10px; 
+
         }
 
         #spinButton {
@@ -156,22 +168,53 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
-            opacity: 0; 
+            opacity: 0;
         }
 
         #spinButton:hover {
             background-color: #218838;
         }
+
+        .upperClass {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: absolute;
+            top: 0;
+            width: 80%;
+            height: 150px;
+            background: white;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-bottom: 5px solid #5a5a5a;
+            border-left: 5px solid #5a5a5a;
+            border-right: 5px solid #5a5a5a;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container" style="background-image: url(cassino.png)">
-        
-        <div class="screen">
-            <div class="prize" id="prize"></div>
+    <div class="upperClass">
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <img
+                style="margin-right: 10px; width: 70px; height: 70px; border-radius: 50%; background-image: url(<%=currentUser.perfil%>); background-size: cover; background-position: center;">
+            <h4>
+                <%=currentUser.name%>
+            </h4>
         </div>
-        
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <code id="cofre" style="font-size: 15px;">...</code>
+            <img src="Token.png" width="28px" height="28px" style="margin-left: 10px;">
+        </div>
+    </div>
+    <div
+        style="background-image: url(cassino.png); background-size: cover; background-position: center;  border-radius: 10px; border: 5px solid #5a5a5a;">
+        <div class="container">
+            <div class="screen" style="background-image: url(screen.gif); background-position: center; background-size: cover;">
+                <code class="prize" id="prize"></code>
+            </div>
+        </div>
     </div>
     <button id="spinButton">Girar</button>
     <div class="subclass"
@@ -182,11 +225,13 @@
         <button class="toggle-btn" id="toggle-btn">
             <i class="fas fa-chevron-up" id="toggle-icon"></i>
         </button>
-        <form id="form">
-            <input type="text" name="name" value="<%=currentUser.name%>" hidden>
-            <input type="text" name="text" placeholder="Digite algo...">
-            <input type="submit" value="Enviar">
-        </form>
+        <% if (currentUser.name=='Sigma' ){%>
+            <form id="form">
+                <input type="text" name="name" value="<%=currentUser.name%>" hidden>
+                <input type="text" name="text" placeholder="Digite algo...">
+                <input type="submit" value="Enviar">
+            </form>
+            <%}%>
     </div>
     <script>
         let isCommentsVisible = true;
@@ -222,7 +267,7 @@
                     $('#comments').empty();
                     data.forEach(function (comment) {
                         if (comment.perfil) {
-                            $('#comments').append(`<div class="comment" id="comment" style="width: 100%;"><strong style="width: 200px; display: flex; justify-content: left; align-items: center; flex-direction: row;"><img style="width:60px; height:60px; border-radius: 50%; margin-right: 10px; margin-bottom: 5px; margin-top: 5px; background-image: url(${comment.perfil}); background-size: cover; background-position: center;"> ${comment.name} </strong> <code style="margin-bottom: 5px;">${comment.data}</code><strong style="width: 100%;"> ${comment.text}</strong></div>`);
+                            $('#comments').append(`<div class="comment" id="comment" style="width: 95%;"><strong style="width: 200px; display: flex; justify-content: left; align-items: center; flex-direction: row;"><img style="width:60px; height:60px; border-radius: 50%; margin-right: 10px; margin-bottom: 5px; margin-top: 5px; background-image: url(${comment.perfil}); background-size: cover; background-position: center;"> ${comment.name} </strong> <code style="margin-bottom: 5px;">${comment.data}</code><strong style="width: 100%;"> ${comment.text}</strong></div>`);
                         }
                     });
                 });
@@ -252,33 +297,47 @@
                 document.getElementById("comments").scrollTop = document.getElementById("comments").scrollHeight - document.getElementById("comments").clientHeight;
             }, 1000);
             document.getElementById('spinButton').addEventListener('click', function () {
+                let prize;
+                $('#spinButton').css('display', 'none');
+                $.get('/getGems', function (data) {
+                    if (data != null) {
+                        prize = data;
+                        const prizeElement = document.getElementById('prize');
+                        $('.container').css('background-image', 'url(cassinoON.gif)');
+                        setTimeout(() => {
+                            $('.screen').css('background-image', 'url(carregamento.gif)')
+                        }, 2000);
 
-                const prizes = ['HITO HITO NO MI: NIKA'];
-                const prizeIndex = Math.floor(Math.random() * prizes.length);
-                const prizeElement = document.getElementById('prize');
-                $('.container').css('background-image', 'url(cassinoON.gif)');
-                setTimeout(() => {
-                    $('.screen').css('background-image', 'url(carregamento.gif)')
-                }, 2000);
-                
-                // Simulando um delay para dar a sensação de suspense
-                /* const suspenseImage = document.createElement('img');
-                suspenseImage.src = "https://media1.tenor.com/m/PMNeSVbYjUsAAAAC/one-piece-gild-tesoro.gif";
-                suspenseImage.alt = 'Girando...';
-                suspenseImage.style.width = '100%';  // Tamanho ajustável
-                suspenseImage.style.height = '100%'; // Tamanho ajustável
-                suspenseImage.style.borderRadius = '10px'; // Tamanho ajustável */
+                        // Simulando um delay para dar a sensação de suspense
+                        /* const suspenseImage = document.createElement('img');
+                        suspenseImage.src = "https://media1.tenor.com/m/PMNeSVbYjUsAAAAC/one-piece-gild-tesoro.gif";
+                        suspenseImage.alt = 'Girando...';
+                        suspenseImage.style.width = '100%';  // Tamanho ajustável
+                        suspenseImage.style.height = '100%'; // Tamanho ajustável
+                        suspenseImage.style.borderRadius = '10px'; // Tamanho ajustável */
 
-                // Adiciona a imagem ao elemento da premiação
-                prizeElement.textContent = "";
-                //prizeElement.appendChild(suspenseImage);
-                
-                setTimeout(() => {
-                    $('.screen').css('background-image', 'none')
-                    prizeElement.textContent = prizes[prizeIndex];
-                }, 20000);
+                        // Adiciona a imagem ao elemento da premiação
+                        prizeElement.textContent = "";
+                        //prizeElement.appendChild(suspenseImage);
+
+                        setTimeout(() => {
+                            $('.screen').css('background-image', 'none')
+                            prizeElement.textContent = prize;
+                            $('.container').css('background-image', 'none');
+                            $('#spinButton').css('display', 'block');
+                        }, 20000);
+                    } else {
+
+                    }
+                });
             });
+            setInterval(() => {
+                $.get('/getCofre', function (data) {
+                    const cofre = document.getElementById("cofre");
+                    cofre.textContent = data;
+                });
 
+            }, 1000);
         });
     </script>
 </body>

@@ -22,7 +22,7 @@ app.post('/register', async (req, res) => {
                 name: name,
                 password: password,
                 perfil: perfil, // Armazena o Buffer no campo perfil
-                gems: 0,
+                gems: 10,
             };
             try {
                 await user.create(newUser);
@@ -70,6 +70,7 @@ app.post('/post', async (req, res)  => {
 // Rota da página inicial (home)
 app.get('/home', async (req, res) => {
     const char = await characters.find({ owner: currentUser.name });
+    console.log(currentUser);
     res.render('home', { currentUser: currentUser, char: char });
 });
 
@@ -92,6 +93,34 @@ app.get('/getComments', async (req, res) => {
         res.status(500).json({ error: error.message }); // Trata erros
     }
 });
+
+app.get('/getGems', async (req, res) => {
+    try {
+        const u1 = await user.findOne({ name: currentUser.name });
+        if (u1.gems > 0){
+            const prizes = ['Hito Hito No Mi: Nika'];
+            const prizeIndex = Math.floor(Math.random() * prizes.length);
+            const prize = prizes[prizeIndex];
+            await user.updateOne({ name: currentUser.name }, { $inc: { gems: -1 } });
+            const u2 = await user.findOne({ name: currentUser.name });
+            console.log(u2.gems);
+            res.json(prize);
+        } else {
+            res.json(null);
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message }); // Trata erros
+    }
+});
+app.get('/getCofre', async (req, res) => {
+    try{
+        const u1 = await user.findOne({ name: currentUser.name });
+        res.json(u1.gems);
+    } catch(error){
+        
+    }
+    
+})
 
 // Conexão com o banco de dados MongoDB
 const uri = 'mongodb+srv://iahfm1:dMFYISY7srCDEwpK@cluster0.xklnmes.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
