@@ -16,25 +16,25 @@ app.use(express.json());
 
 // Rota de registro com upload de imagem
 app.post('/register', async (req, res) => {
-            const { name, password, perfil } = req.body;
-            console.log(name, password, perfil)
-            const newUser = {
-                name: name,
-                password: password,
-                perfil: perfil, // Armazena o Buffer no campo perfil
-                gems: 10,
-            };
-            try {
-                await user.create(newUser);
-                console.log(newUser)
-                res.redirect('/');
-            } catch (error) {
-                res.status(500).json({ error: error });
-            }
+    const { name, password, perfil } = req.body;
+    console.log(name, password, perfil)
+    const newUser = {
+        name: name,
+        password: password,
+        perfil: perfil, // Armazena o Buffer no campo perfil
+        gems: 10,
+    };
+    try {
+        await user.create(newUser);
+        console.log(newUser)
+        res.redirect('/');
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
 });
 
 // Rota de login
-app.post('/', async (req, res)  => {
+app.post('/', async (req, res) => {
     const { name, password } = req.body;
     try {
         currentUser = await user.findOne({ name: name, password: password });
@@ -49,13 +49,13 @@ app.post('/', async (req, res)  => {
 });
 
 // Rota de postagem de comentário
-app.post('/post', async (req, res)  => {
+app.post('/post', async (req, res) => {
     const { name, text } = req.body;
     currentUser = await user.findOne({ name: name });
     let data = new Date();
     const newComment = {
         name: name,
-        perfil: currentUser.perfil,  
+        perfil: currentUser.perfil,
         text: text,
         data: `Enviado às ${data.getHours() - 3} horas e ${data.getMinutes()} minutos (Horário de Brasília)`
     };
@@ -97,14 +97,38 @@ app.get('/getComments', async (req, res) => {
 app.get('/getGems', async (req, res) => {
     try {
         const u1 = await user.findOne({ name: currentUser.name });
-        if (u1.gems > 0){
-            const prizes = ['Hito Hito No Mi: Nika'];
+        if (u1.gems > 0) {
+            const prizes = [
+                { name: 'Hito Hito no Mi: Modelo Nika!', type: 'fruit' },
+                { name: 'Yami Yami no Mi!', type: 'fruit' },
+                { name: 'Hie Hie no Mi', type: 'fruit' },
+                { name: '1000 Berrys', type: 'money' },
+                { name: '1000 Berrys', type: 'money' },
+                { name: '1000 Berrys', type: 'money' },
+                { name: '1000 Berrys', type: 'money' },
+                { name: '1000 Berrys', type: 'money' },
+                { name: '1000 Berrys', type: 'money' },
+                { name: '1000 Berrys', type: 'money' },
+                { name: '1000 Berrys', type: 'money' },
+                { name: '1000 Berrys', type: 'money' },
+            ];
             const prizeIndex = Math.floor(Math.random() * prizes.length);
             const prize = prizes[prizeIndex];
             await user.updateOne({ name: currentUser.name }, { $inc: { gems: -1 } });
             const u2 = await user.findOne({ name: currentUser.name });
             console.log(u2.gems);
             res.json(prize);
+
+            let data = new Date();
+            const newComment = {
+                name: "ADM",
+                perfil: "https://avatarfiles.alphacoders.com/856/85667.jpg",
+                text: `O jogador ${currentUser.name} ganhou ${prize.name}!! Parabéns.`,
+                data: `Enviado às ${data.getHours() - 3} horas e ${data.getMinutes()} minutos (Horário de Brasília)`
+            };
+            setTimeout( async () => {
+                await comment.create(newComment);
+            }, 20000);
         } else {
             res.json(null);
         }
@@ -113,13 +137,13 @@ app.get('/getGems', async (req, res) => {
     }
 });
 app.get('/getCofre', async (req, res) => {
-    try{
+    try {
         const u1 = await user.findOne({ name: currentUser.name });
         res.json(u1.gems);
-    } catch(error){
-        
+    } catch (error) {
+
     }
-    
+
 })
 
 // Conexão com o banco de dados MongoDB

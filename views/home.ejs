@@ -143,9 +143,9 @@
             background-size: cover;
             background-position: center;
             margin-bottom: 66px;
-            background-color: white; 
-            
-            
+            background-color: white;
+
+
         }
 
         .prize {
@@ -153,7 +153,11 @@
             font-weight: bold;
             color: #ffffff;
             color: black;
-            margin: 10px; 
+            margin: 10px;
+            height: 182px;
+            width: 220px;
+            background-size: cover;
+            background-position: center;
 
         }
 
@@ -211,7 +215,8 @@
     <div
         style="background-image: url(cassino.png); background-size: cover; background-position: center;  border-radius: 10px; border: 5px solid #5a5a5a;">
         <div class="container">
-            <div class="screen" style="background-image: url(screen.gif); background-position: center; background-size: cover;">
+            <div class="screen"
+                style="background-image: url(screen.gif); background-position: center; background-size: cover;">
                 <code class="prize" id="prize"></code>
             </div>
         </div>
@@ -301,7 +306,7 @@
                 $('#spinButton').css('display', 'none');
                 $.get('/getGems', function (data) {
                     if (data != null) {
-                        prize = data;
+                        $('.prize').css('background-image', 'none')
                         const prizeElement = document.getElementById('prize');
                         $('.container').css('background-image', 'url(cassinoON.gif)');
                         setTimeout(() => {
@@ -321,8 +326,14 @@
                         //prizeElement.appendChild(suspenseImage);
 
                         setTimeout(() => {
+                            if (data.type == "fruit") {
+                                $('.prize').css('background-image', 'url(prizes/fruit.png)')
+                            } else if (data.type == "money") {
+                                $('.prize').css('background-image', 'url(prizes/money.png)')
+                            } else if (data.type == "weapon"){
+                                $('.prize').css('background-image', 'url(prizes/weapon.png)')
+                            }
                             $('.screen').css('background-image', 'none')
-                            prizeElement.textContent = prize;
                             $('.container').css('background-image', 'none');
                             $('#spinButton').css('display', 'block');
                         }, 20000);
