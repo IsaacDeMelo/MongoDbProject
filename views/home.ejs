@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Notícias</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Notícias do Dia</h1>
+        <nav>
+            <ul>
+                <li><a href="#all" class="filter" data-filter="all">Todas</a></li>
+                <li><a href="#technology" class="filter" data-filter="technology">Tecnologia</a></li>
+                <li><a href="#health" class="filter" data-filter="health">Saúde</a></li>
+                <li><a href="#sports" class="filter" data-filter="sports">Esportes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="news-container">
+            <!-- As notícias serão injetadas aqui -->
+        </section>
+    </main>
+    <button id="button">log-out</button>
+    <footer>
+        <p>&copy; 2024 Notícias do Dia. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>$(document).ready(function () {
+        // Simulação de dados de notícias
+        const articles = [
+            {
+                title: "Avanços na Inteligência Artificial",
+                content: "A inteligência artificial continua a avançar em várias indústrias...",
+                category: "technology",
+            },
+            {
+                title: "Benefícios de uma Dieta Saudável",
+                content: "Uma dieta balanceada é crucial para manter a saúde...",
+                category: "health",
+            },
+            {
+                title: "Campeonato de Futebol: Resultados da Rodada",
+                content: "Os resultados do campeonato de futebol deste fim de semana...",
+                category: "sports",
+            },
+            {
+                title: "Nova Tecnologia de Smartphone Lança",
+                content: "O novo smartphone vem com recursos impressionantes...",
+                category: "technology",
+            },
+            {
+                title: "Impactos do Estresse na Saúde Mental",
+                content: "Estudos mostram que o estresse pode afetar a saúde mental...",
+                category: "health",
+            },
+        ];
+    
+        // Função para exibir as notícias
+        function displayArticles(filter) {
+            $('#news-container').empty(); // Limpa o conteúdo atual
+    
+            const filteredArticles = filter === 'all' ? articles : articles.filter(article => article.category === filter);
+    
+            filteredArticles.forEach(article => {
+                const articleHtml = `
+                    <div class="article">
+                        <h2>${article.title}</h2>
+                        <p>${article.content}</p>
+                        <p><strong>Categoria:</strong> ${article.category}</p>
+                    </div>
+                `;
+                $('#news-container').append(articleHtml);
+            });
+        }
+    
+        // Carregar todas as notícias inicialmente
+        displayArticles('all');
+    
+        // Evento de clique nos filtros
+        $('.filter').on('click', function (event) {
+            event.preventDefault();
+            const filter = $(this).data('filter');
+            displayArticles(filter);
+        });
+        document.getElementById('button').addEventListener('click', logout);
+        function logout(){
+            $.ajax({
+                url: '/auth/logout', // URL da requisição
+                type: 'POST', // Método da requisição
+                dataType: 'json', // Tipo de dados que você espera de volta
+                success: function(response) {
+                    window.location.href = '/';
+                },
+                error: function(xhr) {
+                    // Se houver um erro, exiba uma mensagem
+                    const errorMsg = xhr.responseJSON ? xhr.responseJSON.message : 'Erro ao fazer requisição.';
+                    console.log(errorMsg);
+                }
+        });
+        }
+       
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1></h1>
+    <p>LOGIN</p>
+    <form id="dataForm">
+        <input type="username" name="username" placeholder="NOME">
+        <input type="email" name="email" placeholder="EMAIL">
+        <input type="password" name="password" placeholder="SENHA">
+        <button type="submit">Enviar</button>
+    </form>
+    Não tem conta? entre com um <a href="/">Registro</a>
+    <script>
+    $(document).ready(function() {
+        $('#dataForm').on('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+            const formData = $(this).serialize(); // Serializa os dados do formulário
+            $.ajax({
+                url: '/auth/login', // URL da requisição
+                type: 'POST', // Método da requisição
+                data: formData, // Dados a serem enviados
+                dataType: 'json', // Tipo de dados que você espera de volta
+                success: function(response) {
+                    window.location.href = '/home';
+                },
+                error: function(xhr) {
+                    // Se houver um erro, exiba uma mensagem
+                    const errorMsg = xhr.responseJSON ? xhr.responseJSON.message : 'Erro ao fazer requisição.';
+                    console.log(errorMsg);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
