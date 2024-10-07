@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Artigos</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 900px;
+            margin-top: 40px;
+        }
+        .article {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .article img {
+            max-width: 100%;
+            height: auto;
+            border-bottom: 1px solid #eee;
+        }
+        .article-content {
+            padding: 20px;
+        }
+        .article h2 {
+            font-size: 1.75rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .article p {
+            color: #666;
+            font-size: 1rem;
+        }
+        .article-category {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center mb-4">Lista de Artigos</h1>
+        
+        <!-- Itera sobre os artigos e os organiza em formato de jornal -->
+        <% articles.forEach(article => { %>
+        <div class="article">
+            <!-- Exibe a imagem do artigo, se houver -->
+            <% if (article.images && article.images.length > 0) { %>
+            <img src="<%= article.images[0] %>" alt="<%= article.title %>">
+            <% } %>
+            
+            <div class="article-content">
+                <!-- Categoria do artigo -->
+                <div class="article-category">
+                    <%= article.category %>
+                </div>
+                <!-- Título do artigo -->
+                <h2><%= article.title %></h2>
+                <!-- Descrição ou conteúdo do artigo -->
+                <p><%= article.description %></p>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+
+    <!-- Bootstrap JS e dependências -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+</html>
