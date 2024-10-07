@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Artigo</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <!-- Formulário para criar um novo artigo -->
+    <form id="articleForm">
+
+        <label for="category">Categoria:</label>
+        <select id="category" name="category" required>
+            <option value="">---</option>
+            <option value="Guerra">Guerra</option>
+            <option value="Curiosidade">Informação</option>
+            <option value="Recompensa">Recompensa</option>
+        </select><br><br>
+
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="description">Descrição:</label>
+        <textarea style="width: 100%;" id="description" name="description" required></textarea><br><br>
+
+        <label for="images">Imagens (URLs separadas por vírgula):</label>
+        <input type="text" id="images" name="images"><br><br>
+
+        <div class="cut">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <label for="textSection1">Seção de Texto 1:</label>
+                <div class="banner" id="banner1"></div>
+                <textarea id="textSection1" name="textSection1"></textarea><br><br>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <label for="textSection2">Seção de Texto 2:</label>
+                <div class="banner" id="banner2"></div>
+                <textarea id="textSection2" name="textSection2"></textarea><br><br>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <label for="textSection3">Seção de Texto 3:</label>
+                <div class="banner" id="banner3"></div>
+                <textarea id="textSection3" name="textSection3"></textarea><br><br>
+            </div>
+        </div>
+        <button type="submit">Registrar Artigo</button>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            // Intercepta o evento de envio do formulário
+            $('#articleForm').on('submit', function (e) {
+                e.preventDefault(); // Previne o comportamento padrão do formulário
+
+                // Coleta os dados do formulário
+                const articleData = {
+                    title: $('#title').val(),
+                    description: $('#description').val(),
+                    category: $('#category').val(),
+                    images: $('#images').val().split(','), // Converte URLs de imagens para um array
+                    textSections: [
+                        $('#textSection1').val(),
+                        $('#textSection2').val(),
+                        $('#textSection3').val()
+                    ]
+                };
+
+                // Envia os dados via AJAX
+                $.ajax({
+                    url: '/articles/create',  // Endpoint de criação de artigos
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(articleData),
+                    success: function (response) {
+                        alert('Artigo registrado com sucesso!');
+
+                    },
+                    error: function (xhr) {
+                        // Exibe uma mensagem de erro caso a requisição falhe
+                        const errorMsg = xhr.responseJSON ? xhr.responseJSON.message : 'Erro ao registrar o artigo.';
+                        alert(errorMsg);
+                    }
+                });
+            });
+            setInterval(() => {
+                const images = $('#images').val().split(',')
+                document.getElementById('banner1').style.backgroundImage = `url(${images[0]})`;
+                document.getElementById('banner2').style.backgroundImage = `url(${images[1]})`;
+                document.getElementById('banner3').style.backgroundImage = `url(${images[2]})`;
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

@@ -3,7 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 import authRoutes from './routes/authRoutes';
-import { authenticate } from './middlewares/authMiddleware';
+import mainRoutes from './routes/mainRoutes';
+import articleRoutes from './routes/articleRoutes';
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -21,17 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.get('/', async (req: Request, res: Response) =>{
-    res.render('index.ejs');
-});
-app.get('/login', async (req:Request, res: Response) =>{
-    res.render('login.ejs');
-});
-app.get('/home', authenticate, (req: Request, res: Response) =>{
-    res.render('home.ejs');
-})
 // Rotas de autenticação
 app.use('/auth', authRoutes);
+app.use('/articles', articleRoutes);
+app.use('/', mainRoutes);
 
 // Iniciar o servidor
 app.listen(port, () => {
