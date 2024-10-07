@@ -6,6 +6,7 @@ export interface IArticle extends Document {
     title: string;
     description: string;
     category: string;
+    author: string;
     images: string[]; // URLs ou paths para até 3 imagens
     textSections: string[]; // Até 3 sessões de texto
 }
@@ -15,6 +16,7 @@ const ArticleSchema: Schema = new Schema({
     title: { type: String, required: true },               // Título do artigo
     description: { type: String, required: true },         // Descrição do artigo
     category: { type: String, required: true },            // Categoria do artigo
+    author: { type: String, required: true },
     images: { type: [String], validate: [arrayLimit, '{PATH} exceeds the limit of 3'], default: [] },  // Até 3 URLs de imagens
     textSections: { type: [String], validate: [arrayLimit, '{PATH} exceeds the limit of 3'], default: [] } // Até 3 sessões de texto
 });

@@ -47,6 +47,9 @@
                 <textarea id="textSection3" name="textSection3"></textarea><br><br>
             </div>
         </div>
+        <label for="description">Author:</label>
+            <textarea style="width: 100%; min-height: 20px; height: 40px;" id="author" name="author" required></textarea><br><br>
+
         <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
             <button class="animated-button" type="submit">
                 <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
@@ -76,6 +79,7 @@
                     title: $('#title').val(),
                     description: $('#description').val(),
                     category: $('#category').val(),
+                    author: $('#author').val(),
                     images: $('#images').val().split(','), // Converte URLs de imagens para um array
                     textSections: [
                         $('#textSection1').val(),

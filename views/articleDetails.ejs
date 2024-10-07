@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= article.title %>
+    </title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin-top: 40px;
+        }
+
+        .article {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .article img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article h2 {
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .article p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .article-category {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="text-center mb-4" style="color: #007bff">
+            <%= article.category %>
+        </h1>
+
+        <div class="article">
+            <!-- Exibe todas as imagens do artigo -->
+            <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                <div
+                    style="background-image: url(<%=article.images[0]%>); background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid #000000;; border-radius: 5px;">
+                </div>
+            </div>
+            <div class="article-content">
+                <!-- Categoria do artigo -->
+                <div class="article-category">
+                    <%= article.title %>
+                </div>
+
+                <!-- Textos do artigo -->
+                <p>
+                    <%= article.textSections[0] %>
+                </p>
+                <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                    <div
+                        style="background-image: url(<%=article.images[1]%>); margin-top: 20px; margin-bottom: 42px; background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid black; border-radius: 5px;">
+                    </div>
+                </div>
+                <!-- Textos do artigo -->
+                <p>
+                    <%= article.textSections[1] %>
+                </p>
+                <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                    <div
+                        style="background-image: url(<%=article.images[2]%>); margin-top: 20px; margin-bottom: 42px; background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid black; border-radius: 5px;">
+                    </div>
+                </div>
+                <p>
+                    <%= article.textSections[1] %>
+                </p>
+            </div>
+            <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                <p><i><b>Autor do Documento:</b>
+                        <%= article.author %>
+                </p></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS e dependências -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

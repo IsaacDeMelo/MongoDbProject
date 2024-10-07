@@ -24,12 +24,13 @@ router.get('/teste', authenticate, (req, res) => {
 // Rota para criar um novo artigo
 router.post('/create', authenticate, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { title, description, category, images, textSections } = req.body;
+        const { title, description, category, images, textSections, author } = req.body;
         console.log(`${title}, ${description}, ${category}, ${images}, ${textSections}, `);
         const newArticle = new articleModel_1.Article({
             title,
             description,
             category,
+            author,
             images, // Convertendo string de imagens para array
             textSections
         });
@@ -40,14 +41,27 @@ router.post('/create', authenticate, (req, res) => __awaiter(void 0, void 0, voi
         res.status(500).json({ message: 'Erro ao criar o artigo', error });
     }
 }));
+router.post('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { title } = req.body;
+        const article = yield articleModel_1.Article.findOne({ title: title });
+        console.log(article);
+        res.render('articleDetails.ejs', { article });
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Erro ao carregar o artigo', error });
+    }
+}));
 // Rota para listar todos os artigos
 router.get('/list', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const articles = yield articleModel_1.Article.find();
+        console.log(articles);
         res.render('articlesList.ejs', { articles }); // Renderiza uma página para listar os artigos
     }
     catch (error) {
         res.status(500).json({ message: 'Erro ao listar os artigos', error });
     }
 }));
+// Rota para exibir um artigo individual
 exports.default = router;

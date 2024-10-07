@@ -31,6 +31,7 @@ const ArticleSchema = new mongoose_1.Schema({
     title: { type: String, required: true }, // Título do artigo
     description: { type: String, required: true }, // Descrição do artigo
     category: { type: String, required: true }, // Categoria do artigo
+    author: { type: String, required: true },
     images: { type: [String], validate: [arrayLimit, '{PATH} exceeds the limit of 3'], default: [] }, // Até 3 URLs de imagens
     textSections: { type: [String], validate: [arrayLimit, '{PATH} exceeds the limit of 3'], default: [] } // Até 3 sessões de texto
 });
