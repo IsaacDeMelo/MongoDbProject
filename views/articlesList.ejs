@@ -8,11 +8,45 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Estilos personalizados -->
     <style>
         body {
             background-color: #f7f7f7;
+        }
+
+        #menu-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: #007bff;
+            border: none;
+            width: 60px;
+            /* Definindo um tamanho fixo para o botão */
+            height: 60px;
+            /* Definindo um tamanho fixo para o botão */
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            /* Transição para o fundo */
+        }
+
+
+        #menu-toggle i {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            font-size: 27px;
+        }
+
+        #menu-toggle i.fa-times {
+            transform: rotate(180deg);
+            /* Efeito de rotação para o ícone de fechar */
         }
 
         .container {
@@ -104,6 +138,9 @@
             </div>
             <% }) %>
     </div>
+    <a href="/home"><button id="menu-toggle">
+        <i class="fas fa-arrow-left"></i> <!-- Ícone de menu fechado -->
+    </button></a>
     <script>
         
         

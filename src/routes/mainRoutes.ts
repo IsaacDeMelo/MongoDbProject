@@ -14,7 +14,7 @@ router.get('/login', async (req:Request, res: Response) =>{
 });
 
 router.get('/home', authenticate, (req: Request, res: Response) =>{
-    res.render('home.ejs');
+    res.render('home.ejs')
 })
 
 export default router;

@@ -1,110 +1,228 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Notícias</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-image: url(https://www.pixelstalk.net/wp-content/uploads/2016/03/One-Piece-Wallpaper-1920x1080p.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        section {
+            background-color: white;
+            margin-top: 24vh;
+            width: 85vw;
+            height: 90vh;
+            border-radius: 10px;
+        }
+
+        header {
+            width: 100vw;
+            height: 18.5vh;
+            background: white;
+            position: fixed;
+            top: 0px;
+            box-shadow: 0px -20px 20px 20px black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .responsive-element {
+            border-radius: 5px;
+            width: 300px;
+            height: 100px;
+            background-image: url(img/Background.webp);
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Botão do menu no canto inferior direito */
+        #menu-toggle {
+            position: fixed;
+            bottom: 40px;
+            right: 25px;
+            z-index: 100;
+            background-color: #ffc700;
+            border: none;
+            width: 60px;
+            /* Definindo um tamanho fixo para o botão */
+            height: 60px;
+            /* Definindo um tamanho fixo para o botão */
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            /* Transição para o fundo */
+        }
+
+        /* Menu de navegação */
+        nav {
+            width: 100vw;
+            background: linear-gradient(to right top, #ffc800, #ffd745a8);
+            padding: 2px 0;
+            display: flex;
+            height: 0;
+            overflow: hidden;
+            /* Adiciona overflow para ocultar itens fora do menu fechado */
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+            position: fixed;
+            top: 18.5vh;
+            transition: height 0.5s ease;
+            /* Transição suave de altura */
+        }
+
+        nav.open {
+            height: 200px;
+            /* Define a altura desejada quando o menu estiver aberto */
+        }
+
+        /* Transição suave para o ícone dentro do botão */
+        #menu-toggle i {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            font-size: 27px;
+        }
+
+        #menu-toggle i.fa-times {
+            transform: rotate(180deg);
+            /* Efeito de rotação para o ícone de fechar */
+        }
+
+        .coming-soon:hover{
+            background-color: rgba(255, 255, 255, 0);
+        }
+
+        nav a {
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            width: 100%;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 5px;
+
+        }
+
+        nav a p {
+            font-size: 15px;
+        }
+
+        nav a i {
+            margin-right: 8px;
+            /* Espaçamento entre o ícone e o texto */
+            font-size: 20px;
+            /* Tamanho do ícone */
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            
+        }
+
+        @media (max-width: 768px) {
+            .responsive-element {
+                width: 90vw;
+            }
+
+            section {
+                width: 90vw;
+            }
+
+            nav a {
+                font-size: 16px;
+            }
+
+            #menu-toggle {
+                font-size: 20px;
+                padding: 10px;
+            }
+
+            header {
+                background-image: url(img/Background.webp);
+                background-size: cover;
+                background-position: center;
+                box-shadow: 0px -20px 20px 20px black;
+            }
+            .responsive-element{
+                display: none; 
+            }
+        }
+    </style>
 </head>
+
 <body>
     <header>
-        <h1>Notícias do Dia</h1>
-        <nav>
-            <ul>
-                <li><a href="#all" class="filter" data-filter="all">Todas</a></li>
-                <li><a href="#technology" class="filter" data-filter="technology">Tecnologia</a></li>
-                <li><a href="#health" class="filter" data-filter="health">Saúde</a></li>
-                <li><a href="#sports" class="filter" data-filter="sports">Esportes</a></li>
-            </ul>
-        </nav>
+        <div class="responsive-element">
+        </div>
     </header>
 
-    <main>
-        <section id="news-container">
-            <!-- As notícias serão injetadas aqui -->
-        </section>
-    </main>
-    <button id="button">log-out</button>
-    <footer>
-        <p>&copy; 2024 Notícias do Dia. Todos os direitos reservados.</p>
-    </footer>
+    <!-- Botão do menu com ícone -->
+    <button id="menu-toggle">
+        <i class="fas fa-bars"></i> <!-- Ícone de menu fechado -->
+    </button>
 
+    <nav>
+        <nav>
+            <a href="/articles/teste">
+                <p><i class="fas fa-pen"></i> Escrever Artigo</p>
+            </a>
+            <a href="/articles/list">
+                <p><i class="fas fa-book-open"></i>Ler Artigos</p>
+            </a>
+            
+            <a class="coming-soon" href="#coming-soon">
+                <p><i class="fas fa-coins"></i>Recompensas (Em Breve)</p>
+            </a>
+        </nav>
+
+    </nav>
+
+    <section>
+        <!--<button id="button">log-out</button>-->
+    </section>
+
+    <footer>
+        <i>
+            <p style="font-size: 12.5px;">&copy; 2024 Hoard Piece - Dev. Isaac Ângelo</p>
+        </i>
+    </footer>
     <script>$(document).ready(function () {
-        // Simulação de dados de notícias
-        const articles = [
-            {
-                title: "Avanços na Inteligência Artificial",
-                content: "A inteligência artificial continua a avançar em várias indústrias...",
-                category: "technology",
-            },
-            {
-                title: "Benefícios de uma Dieta Saudável",
-                content: "Uma dieta balanceada é crucial para manter a saúde...",
-                category: "health",
-            },
-            {
-                title: "Campeonato de Futebol: Resultados da Rodada",
-                content: "Os resultados do campeonato de futebol deste fim de semana...",
-                category: "sports",
-            },
-            {
-                title: "Nova Tecnologia de Smartphone Lança",
-                content: "O novo smartphone vem com recursos impressionantes...",
-                category: "technology",
-            },
-            {
-                title: "Impactos do Estresse na Saúde Mental",
-                content: "Estudos mostram que o estresse pode afetar a saúde mental...",
-                category: "health",
-            },
-        ];
-    
-        // Função para exibir as notícias
-        function displayArticles(filter) {
-            $('#news-container').empty(); // Limpa o conteúdo atual
-    
-            const filteredArticles = filter === 'all' ? articles : articles.filter(article => article.category === filter);
-    
-            filteredArticles.forEach(article => {
-                const articleHtml = `
-                    <div class="article">
-                        <h2>${article.title}</h2>
-                        <p>${article.content}</p>
-                        <p><strong>Categoria:</strong> ${article.category}</p>
-                    </div>
-                `;
-                $('#news-container').append(articleHtml);
-            });
-        }
-    
-        // Carregar todas as notícias inicialmente
-        displayArticles('all');
-    
-        // Evento de clique nos filtros
-        $('.filter').on('click', function (event) {
-            event.preventDefault();
-            const filter = $(this).data('filter');
-            displayArticles(filter);
-        });
-        document.getElementById('button').addEventListener('click', logout);
-        function logout(){
-            $.ajax({
-                url: '/auth/logout', // URL da requisição
-                type: 'POST', // Método da requisição
-                dataType: 'json', // Tipo de dados que você espera de volta
-                success: function(response) {
-                    window.location.href = '/';
-                },
-                error: function(xhr) {
-                    // Se houver um erro, exiba uma mensagem
-                    const errorMsg = xhr.responseJSON ? xhr.responseJSON.message : 'Erro ao fazer requisição.';
-                    console.log(errorMsg);
+            let menuOpen = false;
+            $('#menu-toggle').click(function () {
+                menuOpen = !menuOpen;
+
+                // Alterna entre o ícone de barras (menu fechado) e o ícone de "x" (menu aberto)
+                if (menuOpen) {
+                    $('#menu-toggle i').removeClass('fa-bars').addClass('fa-times'); // Ícone de fechar
+                    $('nav').addClass('open'); // Adiciona a classe "open" ao menu
+                } else {
+                    $('#menu-toggle i').removeClass('fa-times').addClass('fa-bars'); // Ícone de abrir
+                    $('nav').removeClass('open'); // Remove a classe "open" do menu
                 }
+            });
         });
-        }
-       
-    });
+
     </script>
 </body>
+
 </html>

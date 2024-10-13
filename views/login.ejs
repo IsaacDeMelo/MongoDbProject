@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/form.css">
 </head>
 <body>
-    <h1></h1>
-    <p>LOGIN</p>
+    <img src="https://media.tenor.com/getgZf-P-I8AAAAi/luffy-one-piece.gif" width="200" height="200">
     <form id="dataForm">
-        <input type="username" name="username" placeholder="NOME">
-        <input type="email" name="email" placeholder="EMAIL">
-        <input type="password" name="password" placeholder="SENHA">
-        <button type="submit">Enviar</button>
+        <p>Faça Login, escritor!</p>
+        <input type="username" name="username" placeholder="Nome">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Senha">
+        <button type="submit">
+            <span> Entrar </span>
+        </button>
     </form>
-    Não tem conta? entre com um <a href="/">Registro</a>
+    <p>Não tem conta? entre com um <a href="/">Registro</a></p>
     <script>
     $(document).ready(function() {
         $('#dataForm').on('submit', function(event) {

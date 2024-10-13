@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/form.css">
 </head>
+
 <body>
     <h1></h1>
-    <p>REGISTRO</p>
+    <img src="https://media.tenor.com/lO6HqZ3I2dIAAAAi/e.gif" width="200" height="200">
     <form id="dataForm">
-        <input type="username" name="username" placeholder="NOME">
-        <input type="email" name="email" placeholder="EMAIL">
-        <input type="password" name="password" placeholder="SENHA">
-        <button type="submit">Enviar</button>
+        <p>Registre-se, escritor!</p>
+        <input type="username" name="username" placeholder="Nome">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Senha">
+        <button type="submit">
+            <span> Entrar </span>
+        </button>
     </form>
-    Já tem uma conta? faça <a href="/login">Login</a>
+    <p>Já tem uma conta? faça <a href="/login">Login</a></p>
     <script>
-        $(document).ready(function() {
-            $('#dataForm').on('submit', function(event) {
+        $(document).ready(function () {
+            $('#dataForm').on('submit', function (event) {
                 event.preventDefault(); // Impede o envio padrão do formulário
                 const formData = $(this).serialize(); // Serializa os dados do formulário
                 $.ajax({
@@ -27,11 +32,11 @@
                     type: 'POST', // Método da requisição
                     data: formData, // Dados a serem enviados
                     dataType: 'json', // Tipo de dados que você espera de volta
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response.message)
                         window.location.href = '/home';
                     },
-                    error: function(xhr) {
+                    error: function (xhr) {
                         // Se houver um erro, exiba uma mensagem
                         const errorMsg = xhr.responseJSON ? xhr.responseJSON.message : 'Erro ao fazer requisição.';
                         console.log(errorMsg);
@@ -41,4 +46,5 @@
         });
     </script>
 </body>
+
 </html>
