@@ -17,7 +17,7 @@ footer{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #ffc700;
+    background-color: #007bff;
 }
 footer p{
     color: white; 
@@ -27,5 +27,4 @@ footer p{
     padding-right: 10px;
     padding-left: 10px; 
     margin: 2px;
-    
 }

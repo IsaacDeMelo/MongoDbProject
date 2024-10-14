@@ -16,14 +16,19 @@ const bcrypt = require('bcryptjs');
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 // Registro de novo usuário
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, email, password } = req.body;
-    try {
-        const user = new userModel_1.User({ username, email, password });
-        yield user.save();
-        res.status(201).json({ message: 'Usuário registrado com sucesso!' });
+    const { username, email, password, cod } = req.body;
+    if (cod == 988567) {
+        try {
+            const user = new userModel_1.User({ username, email, password });
+            yield user.save();
+            res.status(201).json({ message: 'Usuário registrado com sucesso!' });
+        }
+        catch (error) {
+            res.status(500).json({ message: 'Erro ao registrar usuário', error });
+        }
     }
-    catch (error) {
-        res.status(500).json({ message: 'Erro ao registrar usuário', error });
+    else {
+        res.status(500).json({ message: 'Código Invalido' });
     }
 });
 exports.register = register;

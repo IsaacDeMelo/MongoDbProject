@@ -22,7 +22,13 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 router.get('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.render('login.ejs');
 }));
-router.get('/home', authenticate, (req, res) => {
-    res.render('home.ejs');
+router.get('/home', (req, res) => {
+    const token = req.cookies.token;
+    if (token) {
+        res.render('home.ejs');
+    }
+    else {
+        res.render('homeUser.ejs');
+    }
 });
 exports.default = router;

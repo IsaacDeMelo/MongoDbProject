@@ -22,7 +22,7 @@ router.get('/teste', authenticate, (req, res) => {
     res.render('article.ejs'); // Formulário de criação de artigos
 });
 // Rota para criar um novo artigo
-router.post('/create', authenticate, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, description, category, images, textSections, author } = req.body;
         console.log(`${title}, ${description}, ${category}, ${images}, ${textSections}, `);

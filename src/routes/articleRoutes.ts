@@ -12,7 +12,7 @@ router.get('/teste', authenticate, (req: Request, res: Response) => {
 });
 
 // Rota para criar um novo artigo
-router.post('/create', authenticate, async (req: Request, res: Response) => {
+router.post('/create', async (req: Request, res: Response) => {
     try {
         const { title, description, category, images, textSections, author } = req.body;
         console.log(`${title}, ${description}, ${category}, ${images}, ${textSections}, `)

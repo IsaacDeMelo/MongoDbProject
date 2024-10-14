@@ -13,8 +13,13 @@ router.get('/login', async (req:Request, res: Response) =>{
     res.render('login.ejs');
 });
 
-router.get('/home', authenticate, (req: Request, res: Response) =>{
-    res.render('home.ejs')
+router.get('/home', (req: Request, res: Response) =>{
+    const token = req.cookies.token;
+    if (token){
+        res.render('home.ejs');
+    } else {
+        res.render('homeUser.ejs');
+    }
 })
 
 export default router;

@@ -10,11 +10,11 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Estilos personalizados -->
     <style>
         body {
-            background-color: #f7f7f7;
+            background-color: #dddddd;
         }
 
         .container {
@@ -26,9 +26,10 @@
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            margin-bottom: 70px;
             overflow: hidden;
             padding: 10px;
+
         }
 
         .article img {
@@ -57,6 +58,39 @@
             color: #007bff;
             margin-bottom: 10px;
         }
+
+        #menu-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: #007bff;
+            border: none;
+            width: 60px;
+            /* Definindo um tamanho fixo para o botão */
+            height: 60px;
+            /* Definindo um tamanho fixo para o botão */
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            /* Transição para o fundo */
+        }
+
+        #menu-toggle i {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            font-size: 27px;
+        }
+
+        #menu-toggle i.fa-times {
+            transform: rotate(180deg);
+            /* Efeito de rotação para o ícone de fechar */
+        }
     </style>
 </head>
 
@@ -71,7 +105,7 @@
             <!-- Exibe todas as imagens do artigo -->
             <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
                 <div
-                    style="background-image: url(<%=article.images[0]%>); background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid #000000;; border-radius: 5px;">
+                    style="background-image: url(<%=article.images[0]%>); background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid #000000;">
                 </div>
             </div>
             <div class="article-content">
@@ -86,7 +120,7 @@
                 </p>
                 <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
                     <div
-                        style="background-image: url(<%=article.images[1]%>); margin-top: 20px; margin-bottom: 42px; background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid black; border-radius: 5px;">
+                        style="background-image: url(<%=article.images[1]%>); margin-top: 20px; margin-bottom: 42px; background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid black;">
                     </div>
                 </div>
                 <!-- Textos do artigo -->
@@ -95,7 +129,7 @@
                 </p>
                 <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
                     <div
-                        style="background-image: url(<%=article.images[2]%>); margin-top: 20px; margin-bottom: 42px; background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid black; border-radius: 5px;">
+                        style="background-image: url(<%=article.images[2]%>); margin-top: 20px; margin-bottom: 42px; background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid black;">
                     </div>
                 </div>
                 <p>
@@ -109,7 +143,9 @@
             </div>
         </div>
     </div>
-
+    <a href="/articles/list"><button id="menu-toggle">
+        <i class="fas fa-arrow-left"></i> <!-- Ícone de menu fechado -->
+    </button></a>
     <!-- Bootstrap JS e dependências -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

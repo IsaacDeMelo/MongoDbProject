@@ -17,11 +17,13 @@
         <input type="username" name="username" placeholder="Nome">
         <input type="email" name="email" placeholder="Email">
         <input type="password" name="password" placeholder="Senha">
+        <input type="password" name="cod" placeholder="Codigo de Criador">
         <button type="submit">
             <span> Entrar </span>
         </button>
     </form>
-    <p>Já tem uma conta? faça <a href="/login">Login</a></p>
+    <p style="margin-top: 5px; margin-bottom: 0; margin-left: 0; margin-right: 0;">Já tem uma conta? faça <a href="/login">Login</a></p>
+    <p style="margin-top: 0px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">Entrar como <a href="/home">Usuario</a></p>
     <script>
         $(document).ready(function () {
             $('#dataForm').on('submit', function (event) {

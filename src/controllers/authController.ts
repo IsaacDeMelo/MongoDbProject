@@ -8,15 +8,20 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
 // Registro de novo usuário
 export const register = async (req: Request, res: Response) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, cod } = req.body;
 
-    try {
-        const user = new User({ username, email, password });
-        await user.save();
-        res.status(201).json({ message: 'Usuário registrado com sucesso!' });
-    } catch (error) {
-        res.status(500).json({ message: 'Erro ao registrar usuário', error });
+    if (cod == 988567){
+        try {
+            const user = new User({ username, email, password });
+            await user.save();
+            res.status(201).json({ message: 'Usuário registrado com sucesso!' });
+        } catch (error) {
+            res.status(500).json({ message: 'Erro ao registrar usuário', error });
+        }
+    } else {
+        res.status(500).json({ message: 'Código Invalido'})
     }
+    
 };
 
 // Login de usuário
