@@ -55,13 +55,49 @@ router.post('/search', (req, res) => __awaiter(void 0, void 0, void 0, function*
 // Rota para listar todos os artigos
 router.get('/list', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const token = req.cookies.token;
         const articles = yield articleModel_1.Article.find();
         console.log(articles);
-        res.render('articlesList.ejs', { articles }); // Renderiza uma página para listar os artigos
+        if (token) {
+            res.render('articlesList.ejs', { articles, token }); // Renderiza uma página para listar os artigos
+        }
+        else {
+            res.render('articlesList.ejs', { articles });
+        }
     }
     catch (error) {
         res.status(500).json({ message: 'Erro ao listar os artigos', error });
     }
 }));
-// Rota para exibir um artigo individual
+// Rota para listar todos os artigos
+router.get('/edit/:title', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const title = req.params.title;
+    const article = yield articleModel_1.Article.findOne({ title: title });
+    console.log(article);
+    console.log(title);
+    res.render('articleFormEdit.ejs', { article: article });
+    /*try {
+        
+    } catch (error) {
+        res.status(500).json({ message: 'Erro', error });
+    }*/
+}));
+router.post('/edit/make', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { title, description, category, images, textSections, author } = req.body;
+        console.log(`${title}, ${description}, ${category}, ${images}, ${textSections}, `);
+        const newArticle = yield articleModel_1.Article.findOneAndUpdate({ title }, {
+            title,
+            description,
+            category,
+            author,
+            images, // Convertendo string de imagens para array
+            textSections
+        }, { new: true });
+        res.status(201).json({ message: 'Artigo criado com sucesso!' });
+    }
+    catch (error) {
+        console.error(error);
+    }
+}));
 exports.default = router;

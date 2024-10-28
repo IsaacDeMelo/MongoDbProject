@@ -104,9 +104,7 @@
         <div class="article">
             <!-- Exibe todas as imagens do artigo -->
             <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                <div
-                    style="background-image: url(<%=article.images[0]%>); background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid #000000;">
-                </div>
+                <img src="<%=article.images[0]%>" style="width: 100%;">
             </div>
             <div class="article-content">
                 <!-- Categoria do artigo -->
@@ -119,25 +117,23 @@
                     <%= article.textSections[0] %>
                 </p>
                 <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                    <div
-                        style="background-image: url(<%=article.images[1]%>); margin-top: 20px; margin-bottom: 42px; background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid black;">
-                    </div>
+                    
+                    <img src="<%=article.images[1]%>" style="width: 100%;">
                 </div>
                 <!-- Textos do artigo -->
                 <p>
                     <%= article.textSections[1] %>
                 </p>
                 <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                    <div
-                        style="background-image: url(<%=article.images[2]%>); margin-top: 20px; margin-bottom: 42px; background-size: cover; background-position: center; width: 400px; height: 300px; border: 1px solid black;">
-                    </div>
+                    <img src="<%=article.images[2]%>" style="width: 100%;">
+                </img>
                 </div>
                 <p>
                     <%= article.textSections[2] %>
                 </p>
             </div>
             <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                <p><i><b>Autor do Documento:</b>
+                <p style="text-align: center;"><i><b>Autor do Documento:</b>
                         <%= article.author %>
                 </p></i>
             </div>

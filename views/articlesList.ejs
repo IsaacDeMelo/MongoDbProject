@@ -175,15 +175,25 @@
     <div class="container">
         <!-- Itera sobre os artigos e os organiza em formato de jornal -->
         <% articles.forEach(article=> { %>
-            <div class="article">
+            <div class="article" style="position: relative">
                 <!-- Exibe a imagem do artigo, se houver -->
                 <% if (article.images && article.images.length> 0) { %>
                     <form method="post" action="/articles/search">
                         <input type="text" name="title" value="<%= article.title %>" style="display: none;">
+                        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                            <% try { %>
+                            <% if (token){%>
+                            <a href="/articles/edit/<%= article.title %>"><div id="menu-toggle" style="position: absolute; top: 20px; opacity: 0.5; z-index: 1;">
+                                <i class="fas fa-pencil-alt"></i>
+                                <!-- EDITAR -->
+                            </div></a>
+                            <% } } catch (error) {} %>
+                        </div>
                         <button type="submit" id="submit" style="transition: all 3s">
                             <div class="img"
                                 style="background-image: url(<%=article.images[0]%>); background-position: center; background-size: cover;"
-                                alt="<%= article.title %>"></div>
+                                alt="<%= article.title %>">
+                            </div>
                         </button>
                     </form>
                     <% } %>
@@ -208,11 +218,11 @@
     <a href="/home"><button id="menu-toggle">
             <i class="fas fa-arrow-left"></i> <!-- Ícone de menu fechado -->
         </button></a>
-        <footer>
-            <i>
-                <p style="font-size: 12.5px;">&copy; 2024 Hoard Piece - Dev. Isaac Ângelo</p>
-            </i>
-        </footer>
+    <footer>
+        <i>
+            <p style="font-size: 12.5px;">&copy; 2024 Hoard Piece - Dev. Isaac Ângelo</p>
+        </i>
+    </footer>
     <script>
     </script>
     <!-- Bootstrap JS e dependências -->

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Artigo</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Estilos globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            /* cor de fundo suave */
+        }
+
+        form {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            margin: 25px;
+        }
+
+        .banner {
+            width: 300px;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            margin: 5px;
+            border: 0.5px solid gray;
+        }
+
+        .cut {
+            display: flex;
+            justify-content: center;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        label {
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: rgb(21, 21, 21);
+            outline: none;
+            background-color: #fff;
+        }
+
+        textarea {
+            resize: vertical;
+            width: 300px;
+            min-height: 200px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #999;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+        }
+
+        .form-footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Adiciona um efeito sutil de transição em todos os inputs */
+        input,
+        select,
+        textarea,
+        button {
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* From Uiverse.io by gharsh11032000 */
+        .animated-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 16px 36px;
+            border: 4px solid;
+            border-color: transparent;
+            font-size: 16px;
+            background-color: inherit;
+            border-radius: 100px;
+            font-weight: 600;
+            color: rgb(21, 21, 21);
+            box-shadow: 0 0 0 2px rgb(21, 21, 21);
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button svg {
+            position: absolute;
+            width: 24px;
+            fill: rgb(21, 21, 21);
+            z-index: 9;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .arr-1 {
+            right: 16px;
+        }
+
+        .animated-button .arr-2 {
+            left: -25%;
+        }
+
+        .animated-button .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: rgb(21, 21, 21);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .text {
+            position: relative;
+            z-index: 1;
+            transform: translateX(-12px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button:hover {
+            box-shadow: 0 0 0 12px transparent;
+            color: white;
+            border-radius: 12px;
+        }
+
+        .animated-button:hover .arr-1 {
+            right: -25%;
+        }
+
+        .animated-button:hover .arr-2 {
+            left: 16px;
+        }
+
+        .animated-button:hover .text {
+            transform: translateX(12px);
+        }
+
+        .animated-button:hover svg {
+            fill: white;
+        }
+
+        .animated-button:active {
+            scale: 0.95;
+            box-shadow: 0 0 0 4px rgb(21, 21, 21);
+        }
+
+        .animated-button:hover .circle {
+            width: 220px;
+            height: 220px;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Formulário para criar um novo artigo -->
+    <form id="articleForm">
+
+        <label for="category">Categoria:</label>
+        <select id="category" name="category" required>
+            <option value="">
+                <%= article.category %>
+            </option>
+            <option value="Guerra">Guerra</option>
+            <option value="Informação">Informação</option>
+            <option value="Recompensa">Recompensa</option>
+        </select><br><br>
+
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" value="<%= article.title %>" required><br><br>
+
+        <label for="description">Descrição:</label>
+        <textarea style="width: 100%;" id="description" name="description" required><%= article.description %></textarea><br><br>
+
+        <label for="images">Imagens (URLs separadas por vírgula):</label>
+        <input type="text" id="images" name="images" value="<%= article.images[0] %>, <%= article.images[1] %>, <%= article.images[2] %>"><br><br>
+
+        <div class="cut">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <label for="textSection1">Primeiro Artigo</label>
+                <div class="banner" id="banner1"></div>
+                <textarea id="textSection1" name="textSection1"><%= article.textSections[0] %></textarea><br><br>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <label for="textSection2">Segundo Artigo</label>
+                <div class="banner" id="banner2"></div>
+                <textarea id="textSection2" name="textSection2"><%= article.textSections[1] %></textarea><br><br>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <label for="textSection3">Terceiro Artigo</label>
+                <div class="banner" id="banner3"></div>
+                <textarea id="textSection3" name="textSection3"><%= article.textSections[2] %></textarea><br><br>
+            </div>
+        </div>
+        <label for="description">Author:</label>
+        <textarea style="width: 100%; min-height: 20px; height: 40px;" id="author" name="author"
+            required><%= article.author %></textarea><br><br>
+
+        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+            <button class="animated-button" type="submit">
+                <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                    </path>
+                </svg>
+                <span class="text">Enviar Artigo</span>
+                <span class="circle"></span>
+                <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            // Intercepta o evento de envio do formulário
+            $('#articleForm').on('submit', function (e) {
+                e.preventDefault(); // Previne o comportamento padrão do formulário
+
+                // Coleta os dados do formulário
+                const articleData = {
+                    title: $('#title').val(),
+                    description: $('#description').val(),
+                    category: $('#category').val(),
+                    author: $('#author').val(),
+                    images: $('#images').val().split(','), // Converte URLs de imagens para um array
+                    textSections: [
+                        $('#textSection1').val(),
+                        $('#textSection2').val(),
+                        $('#textSection3').val()
+                    ]
+                };
+
+                // Envia os dados via AJAX
+                $.ajax({
+                    url: '/articles/edit/make',  // Endpoint de criação de artigos
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(articleData),
+                    success: function (response) {
+                        alert('Artigo editado com sucesso!');
+
+                    },
+                    error: function (xhr) {
+                        // Exibe uma mensagem de erro caso a requisição falhe
+                        const errorMsg = xhr.responseJSON ? xhr.responseJSON.message : 'Erro ao registrar o artigo.';
+                        alert(errorMsg);
+                    }
+                });
+            });
+            setInterval(() => {
+                const images = $('#images').val().split(',')
+                document.getElementById('banner1').style.backgroundImage = `url(${images[0]})`;
+                document.getElementById('banner2').style.backgroundImage = `url(${images[1]})`;
+                document.getElementById('banner3').style.backgroundImage = `url(${images[2]})`;
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
