@@ -22,4 +22,8 @@ router.get('/home', (req: Request, res: Response) =>{
     }
 })
 
+router.get('/premier', async (req:Request, res: Response) =>{
+    res.render('premier.ejs');
+});
+
 export default router;

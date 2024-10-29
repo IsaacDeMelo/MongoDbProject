@@ -31,4 +31,7 @@ router.get('/home', (req, res) => {
         res.render('homeUser.ejs');
     }
 });
+router.get('/premier', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.render('premier.ejs');
+}));
 exports.default = router;

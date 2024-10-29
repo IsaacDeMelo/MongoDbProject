@@ -275,48 +275,35 @@
         <img src="https://media.tenor.com/3_KCo0AqiAwAAAAi/shadowkitty-shadow.gif" width="150">
     </div>
     <div class="container">
-        <!-- Itera sobre os artigos e os organiza em formato de jornal -->
-        <% articles.forEach(article=> { %>
-            <div class="article" style="position: relative">
-                <!-- Exibe a imagem do artigo, se houver -->
-                <% if (article.images && article.images.length> 0) { %>
-                    <form method="post" action="/articles/search">
-                        <input type="text" name="title" value="<%= article.title %>" style="display: none;">
-                        <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                            <% try { %>
-                            <% if (token){%>
-                            <a href="/articles/edit/<%= article.title %>"><div id="menu-toggle" style="position: absolute; top: 20px; opacity: 0.5; z-index: 1;">
-                                <i class="fas fa-pencil-alt"></i>
-                                <!-- EDITAR -->
-                            </div></a>
-                            <% } } catch (error) {} %>
-                        </div>
-                        <button type="submit" id="submit" style="transition: all 3s; padding: 0; ">
-                            <div class="img"
-                                style="background-image: url(<%=article.images[0]%>); background-position: center; background-size: cover;"
-                                alt="<%= article.title %>">
-                            </div>
-                        </button>
-                    </form>
-                    <% } %>
-
-                        <div class="article-content">
-                            <!-- Categoria do artigo -->
-                            <div class="article-category">
-                                <%= article.category %>
-                            </div>
-                            <!-- Título do artigo -->
-                            <h2>
-                                <%= article.title %>
-                            </h2>
-                            <!-- Descrição ou conteúdo do artigo -->
-                            <p>
-                                <%= article.description %>
-                            </p>
-                        </div>
-            </div>
-            <% }) %>
+        <div class="article" style="position: relative; padding: 30px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+            <img src="https://pre00.deviantart.net/d24f/th/pre/f/2017/008/d/8/metal_sonic_by_tapozia-daurydv.png" style="width: 100%; border-radius: 30px;">
+            <br>
+            <h4 style="text-align: center; margin-top: 20px; "><i>Metal Charlotte - Tohru</i></h2>
+                <p><i>O Primeiro jogador à conseguir uma recompensa.</i></p>
+                <img src="https://img1.pnghut.com/17/3/15/mJUZgDvpDs/logo-skull-symbol-tampa-bay-buccaneers-pirate.jpg" style="width: 100px; border-radius: 50%;">
+        </div>
+        <div class="article" style="position: relative; padding: 30px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+            <img src="https://cdna.artstation.com/p/assets/images/images/060/858/982/large/felicia-leandra-hbd-amy-n-metal.jpg?1679476021" style="width: 100%; border-radius: 30px;">
+            <br>
+            <h4 style="text-align: center; margin-top: 20px; "><i>Metal Charlotte - Tohru</i></h2>
+                <p><i>O vencedor do Primeiro Evento de Halloween do Hoard Piece.</i></p>
+                <img src="https://s3.minijuegosgratis.com/media/trophies/contest-halloween-13/216x216.png" style="width: 100px;">
+        </div>
+        <div class="article" style="position: relative; padding: 30px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+            <p><i>CONQUISTAS À SEREM CONQUISTADAS</i></p> 
+            <br>
+            <p>~ Assassino de Almirantes</p>
+            <p>~ Bilionário </p>
+            <p>~ Paramécia Especial</p>
+            <p>~ Conquistador</p>
+            <p>~ Dono de Frota</p>
+            <p>~ Oficial da Marinha</p>
+            <p>~ Kokuto Temporária</p>
+            <p>~ CP9</p>
+            <p>. . .</p>   
+        </div>
     </div>
+    
     <a href="/home"><button id="menu-toggle">
             <i class="fas fa-arrow-left"></i> <!-- Ícone de menu fechado -->
         </button></a>

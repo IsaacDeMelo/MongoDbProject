@@ -13,27 +13,78 @@
             background-position: center;
             background-attachment: fixed;-->
     <style>
+        *{
+            transition: 1s background-color linear; 
+        }
         body {
             display: flex;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            background-color: #181818;
+        }
+
+        body.light-mode header{
+            background-color: white;
+        }
+
+        body.light-mode {
+            background-color: #dddddd;
+            color: #333333;
+        }
+
+        body.light-mode section {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        body.light-mode #theme-toggle {
             background-color: #dddddd;
         }
 
+        #theme-toggle {
+            position: fixed;
+            cursor: pointer;
+            z-index: 100;
+            width: 200px;
+            display: flex; 
+            justify-content: flex-end;
+            align-items: center;
+            border-radius: 30px;
+            height: 60px;
+            padding-top: 5px; 
+            padding-bottom: 5px; 
+            padding-right: 10px; 
+            bottom: 110px; 
+            left: -150px;
+            background-color: #181818;
+        
+        }
+
+        #theme-toggle img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .rotate-icon {
+            transform: rotate(360deg);
+            opacity: 0;
+        }
+        
         section {
-            background-color: white;
-            margin-top: 24vh;
+            background-color: rgb(15, 15, 15);
+            margin-top: 22vh;
             width: 85vw;
             border-radius: 10px;
-            margin-bottom: 40px;
+            margin-bottom: 100px;
         }
 
         header {
             width: 100vw;
             height: 18.5vh;
-            background: white;
+            background: rgb(14, 14, 14);
             position: fixed;
             top: 0px;
             box-shadow: 0px -20px 20px 20px black;
@@ -46,9 +97,41 @@
             border-radius: 5px;
             width: 300px;
             height: 100px;
-            background-image: url(img/Background.webp);
+            background-image: url(img/halloBack2.webp);
             background-size: cover;
-            background-position: center;
+            background-position: top;
+        }
+
+        /* Tela de carregamento */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 101vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.97);
+            color: #FF7F50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        /* Animação do ícone de abóbora */
+        #loading-icon {
+            font-size: 60px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Botão do menu no canto inferior direito */
@@ -57,7 +140,8 @@
             bottom: 20px;
             right: 20px;
             z-index: 100;
-            background-color: #007bff;
+            /* background-color: #007bff;*/
+            background-color: rgb(204, 0, 255);
             border: none;
             width: 60px;
             /* Definindo um tamanho fixo para o botão */
@@ -79,7 +163,8 @@
         nav {
             box-sizing: border-box;
             width: 100vw;
-            background: linear-gradient(to right top, #007bff, #007bff);
+            /* background: linear-gradient(to right top, #007bff, #007bff);*/
+            background-color: rgb(143, 2, 179);
             display: flex;
             height: 0;
             overflow: hidden;
@@ -142,6 +227,10 @@
 
         }
 
+        #potato{
+            width: 300px;
+        }
+
         @media (max-width: 768px) {
             .responsive-element {
                 width: 90vw;
@@ -161,14 +250,18 @@
             }
 
             header {
-                background-image: url(img/Background.webp);
+                background-image: url(img/halloBack2.webp);
                 background-size: cover;
-                background-position: center;
+                background-position: top;
                 box-shadow: 0px -20px 20px 20px black;
             }
 
             .responsive-element {
                 display: none;
+            }
+
+            #potato{
+                width: 100vw; 
             }
         }
     </style>
@@ -180,13 +273,26 @@
         </div>
     </header>
 
+    <div id="theme-toggle">
+        <img id="theme-icon" src="https://dejpknyizje2n.cloudfront.net/processing/raster/c65852b3154e442fa85d3a5405ee127a.png"> <!-- Ícone da lua inicialmente (modo escuro) -->
+    </div>
+
+
+    <div id="loading-screen">
+        <img src="https://media.tenor.com/3_KCo0AqiAwAAAAi/shadowkitty-shadow.gif" width="150">
+    </div>
+
     <!-- Botão do menu com ícone -->
     <button id="menu-toggle">
         <i class="fas fa-bars"></i> <!-- Ícone de menu fechado -->
     </button>
 
-    <nav>
+    <nav>fa-trophy
         <nav>
+            <a href="/premier">
+                <p><i class="fas fa-trophy"></i>Conquistas</p>
+            </a>
+
             <a href="/articles/list">
                 <p><i class="fas fa-book-open"></i>Ler Artigos</p>
             </a>
@@ -200,24 +306,27 @@
 
     <section
         style="padding: 10px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-        <img src="https://media.tenor.com/CHKoOOKvzx4AAAAi/one-piece-franky.gif" width="200">
-        <h3 style="margin: 0; color: #007bff">Ainda em Manutenção</h3>
-        <p style="margin: 20px; text-align: center">Aqui serão depositados informações essênciais e uteis para um
-            progresso responsável no grande Universo dos piratas. No momento, a função existente é a função de Ler os
-            Artigos que serão escritos pós arco, e com informações globais. A sessão de recompensas, em breve, terá
-            recompensas de todos os Piratas conhecidos no RPG, além de recompensas normais de Piratas procurados para
-            servir aos caçadores de recompensa. As recompensas terão todas as informações disponíveis sobre o criminoso,
-            como: Altura, Peso, Nome, Poderes e Localização estimada. Eventos futuros também serão feitos através dessa
-            plataforma, evitando possíveis sensações de injustiça. Aproveite o RPG, e nunca esqueça de cobrar o Narras!
+        <!-- <img src="https://media.tenor.com/CHKoOOKvzx4AAAAi/one-piece-franky.gif" width="200">-->
+        <img src="https://pre00.deviantart.net/d558/th/pre/i/2015/017/a/b/brook_chibi___render_by_sherryflox-d8e8qay.png" width="200">
+        <h3 style="margin: 0; color: rgb(204, 0, 255);">Feliz Halloween!</h3>
+        <p style="margin: 20px; text-align: center; color: rgb(107, 107, 107); "> Terminado o Evento Principal de Halloween, agora partiremos para a reta final da comemoração. A administração espera que tenham gostado do evento que 
+            concluímos, e lamentamos pelos jogadores que não puderam participar. Por enquanto, não esperem muita coisa, afinal, o evento terminou agora, e o ON está congelado à muito tempo. Cobrem o Narras!
+            <br>
+            <i>~ Isaac</i>
         </p>
     </section>
-
-    <footer>
+    <img id="potato" src="https://th.bing.com/th/id/R.a421b30aaf8b7ef06307f766f17e7c42?rik=TI%2fHk2eQjf8Azw&pid=ImgRaw&r=0" style="position: fixed; bottom: 0px;">
+    <footer style="background-color: rgb(143, 2, 179);">
         <i>
-            <p style="font-size: 12.5px;">&copy; 2024 Hoard Piece - Dev. Isaac Ângelo</p>
+            <p style="font-size: 12.5px; ">&copy; 2024 Hoard Piece - Dev. Isaac Ângelo</p>
         </i>
     </footer>
     <script>$(document).ready(function () {
+            document.getElementById('theme-icon').src = "https://th.bing.com/th/id/R.1c467fdad18a69023bcb633641291b6d?rik=IpkamDzug%2bLuew&pid=ImgRaw&r=0";
+            document.getElementById('theme-icon').src = "https://cdn-icons-png.flaticon.com/256/5454/5454272.png";
+            setTimeout(() => {
+                $("#loading-screen").css('display', 'none');
+            }, 3000);
             let menuOpen = false;
             $('#menu-toggle').click(function () {
                 menuOpen = !menuOpen;
@@ -230,6 +339,32 @@
                     $('#menu-toggle i').removeClass('fa-times').addClass('fa-bars'); // Ícone de abrir
                     $('nav').removeClass('open'); // Remove a classe "open" do menu
                 }
+            });
+            // Alternância de tema
+            const sunIcon = 'https://th.bing.com/th/id/R.1c467fdad18a69023bcb633641291b6d?rik=IpkamDzug%2bLuew&pid=ImgRaw&r=0';
+            const moonIcon = 'https://cdn-icons-png.flaticon.com/256/5454/5454272.png';
+
+            // Carrega o tema salvo no localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                $('body').addClass('light-mode');
+                $('#theme-icon').attr('src', sunIcon);
+            } else {
+                $('#theme-icon').attr('src', moonIcon);
+            }
+
+            // Alternância de tema com animação
+            $('#theme-toggle').click(function () {
+                const themeIcon = $('#theme-icon');
+                themeIcon.addClass('rotate-icon'); // Adiciona a classe para a rotação
+
+                setTimeout(() => {
+                    $('body').toggleClass('light-mode');
+                    const isLightMode = $('body').hasClass('light-mode');
+                    themeIcon.attr('src', isLightMode ? sunIcon : moonIcon);
+                    localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+                    themeIcon.removeClass('rotate-icon'); // Remove a classe após a transição
+                }, 300);
             });
         });
 
