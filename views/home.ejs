@@ -13,9 +13,10 @@
             background-position: center;
             background-attachment: fixed;-->
     <style>
-        *{
-            transition: 1s background-color linear; 
+        * {
+            transition: 1s background-color linear;
         }
+
         body {
             display: flex;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -25,7 +26,7 @@
             background-color: #181818;
         }
 
-        body.light-mode header{
+        body.light-mode header {
             background-color: white;
         }
 
@@ -48,18 +49,18 @@
             cursor: pointer;
             z-index: 100;
             width: 200px;
-            display: flex; 
+            display: flex;
             justify-content: flex-end;
             align-items: center;
             border-radius: 30px;
             height: 60px;
-            padding-top: 5px; 
-            padding-bottom: 5px; 
-            padding-right: 10px; 
-            bottom: 110px; 
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-right: 10px;
+            bottom: 110px;
             left: -150px;
             background-color: #181818;
-        
+
         }
 
         #theme-toggle img {
@@ -72,7 +73,7 @@
             transform: rotate(360deg);
             opacity: 0;
         }
-        
+
         section {
             background-color: rgb(15, 15, 15);
             margin-top: 22vh;
@@ -82,6 +83,7 @@
         }
 
         header {
+            z-index: 10;
             width: 100vw;
             height: 18.5vh;
             background: rgb(14, 14, 14);
@@ -175,6 +177,7 @@
             position: fixed;
             top: 18.5vh;
             transition: height 0.5s ease;
+            z-index: 9;
             /* Transição suave de altura */
         }
 
@@ -227,7 +230,7 @@
 
         }
 
-        #potato{
+        #potato {
             width: 300px;
         }
 
@@ -260,9 +263,21 @@
                 display: none;
             }
 
-            #potato{
-                width: 100vw; 
+            #potato {
+                width: 100vw;
             }
+        }
+
+        .emoji {
+            font-size: 40px;
+            cursor: pointer;
+            margin: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        .emoji.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -274,7 +289,9 @@
     </header>
 
     <div id="theme-toggle">
-        <img id="theme-icon" src="https://dejpknyizje2n.cloudfront.net/processing/raster/c65852b3154e442fa85d3a5405ee127a.png"> <!-- Ícone da lua inicialmente (modo escuro) -->
+        <img id="theme-icon"
+            src="https://dejpknyizje2n.cloudfront.net/processing/raster/c65852b3154e442fa85d3a5405ee127a.png">
+        <!-- Ícone da lua inicialmente (modo escuro) -->
     </div>
 
 
@@ -309,15 +326,30 @@
     <section
         style="padding: 10px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
         <!-- <img src="https://media.tenor.com/CHKoOOKvzx4AAAAi/one-piece-franky.gif" width="200">-->
-        <img src="https://pre00.deviantart.net/d558/th/pre/i/2015/017/a/b/brook_chibi___render_by_sherryflox-d8e8qay.png" width="200">
-        <h3 style="margin: 0; color: rgb(204, 0, 255);">Feliz Halloween!</h3>
-        <p style="margin: 20px; text-align: center; color: rgb(107, 107, 107); "> Terminado o Evento Principal de Halloween, agora partiremos para a reta final da comemoração. A administração espera que tenham gostado do evento que 
-            concluímos, e lamentamos pelos jogadores que não puderam participar. Por enquanto, não esperem muita coisa, afinal, o evento terminou agora, e o ON está congelado à muito tempo. Cobrem o Narras!
-            <br>
-            <i>~ Isaac</i>
+        <div style="width: 100%; height: 300px; position: relative">
+            <img id="brook" style="position: absolute; transition: 2s all;"
+                src="https://pre00.deviantart.net/d558/th/pre/i/2015/017/a/b/brook_chibi___render_by_sherryflox-d8e8qay.png"
+                width="200">
+        </div>
+        <h3 style="margin: 0; color: rgb(204, 0, 255);">Estou voando?! YOHOHOHO!</h3>
+        <p style="margin: 20px; text-align: center; color: rgb(107, 107, 107); ">
+        <section id="emoji-event"
+            style="margin: 0; padding: 10px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+
+            <% emojis.forEach(emoji=> { %>
+                <span class="emoji" data-name="<%= emoji.name %>">
+                    <%= emoji.code %>
+                </span>
+                <% }); %>
+        </section>
+
+        <br>
+        <i>~ Isaac</i>
         </p>
     </section>
-    <img id="potato" src="https://th.bing.com/th/id/R.a421b30aaf8b7ef06307f766f17e7c42?rik=TI%2fHk2eQjf8Azw&pid=ImgRaw&r=0" style="position: fixed; bottom: 0px;">
+    <img id="potato"
+        src="https://th.bing.com/th/id/R.a421b30aaf8b7ef06307f766f17e7c42?rik=TI%2fHk2eQjf8Azw&pid=ImgRaw&r=0"
+        style="position: fixed; bottom: 0px;">
     <footer style="background-color: rgb(143, 2, 179);">
         <i>
             <p style="font-size: 12.5px; ">&copy; 2024 Hoard Piece - Dev. Isaac Ângelo</p>
@@ -326,6 +358,25 @@
     <script>$(document).ready(function () {
             document.getElementById('theme-icon').src = "https://th.bing.com/th/id/R.1c467fdad18a69023bcb633641291b6d?rik=IpkamDzug%2bLuew&pid=ImgRaw&r=0";
             document.getElementById('theme-icon').src = "https://cdn-icons-png.flaticon.com/256/5454/5454272.png";
+            let brook = document.getElementById('brook');
+            setInterval(() => {
+                brook.style.top = "0px";
+                setTimeout(() => {
+                    brook.style.top = "20px";
+                }, 1000)
+                setTimeout(() => {
+                    brook.style.top = "50px";
+                }, 2000)
+                setTimeout(() => {
+                    brook.style.top = "20px";
+                }, 3000)
+            }, 5000);
+            setInterval(() => {
+                brook.style.left = "30%";
+                setTimeout(() => {
+                    brook.style.left = "0%";
+                }, 1000)
+            }, 2000);
             setTimeout(() => {
                 $("#loading-screen").css('display', 'none');
             }, 3000);
@@ -355,6 +406,46 @@
                 $('#theme-icon').attr('src', moonIcon);
             }
 
+            function fetchEmojis() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/emojis', // A rota que você criou
+                    success: function (emojis) {
+                        const emojiContainer = $('#emoji-event');
+                        emojiContainer.empty(); // Limpa os emojis existentes
+                        emojis.forEach(emoji => {
+                            emojiContainer.append(`<span class="emoji" data-name="${emoji.name}">${emoji.code}</span>`);
+                        });
+                    },
+                    error: function () {
+                        console.error("Erro ao buscar emojis.");
+                    }
+                });
+            }
+
+            // Adicione o evento de clique usando delegação
+            $(document).on('click', '.emoji', function () {
+                const emoji = $(this);
+                const emojiName = emoji.data('name');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/click-emoji', // Defina a rota no backend
+                    data: JSON.stringify({ emoji: emojiName }),
+                    contentType: 'application/json',
+                    success: function () {
+                        // Oculta o emoji após a resposta bem-sucedida
+                    },
+                    error: function () {
+                        alert("Erro ao registrar o clique no emoji.");
+                    }
+                });
+            });
+
+            // Atualiza emojis a cada 500 ms
+            setInterval(fetchEmojis, 500);
+
+
             // Alternância de tema com animação
             $('#theme-toggle').click(function () {
                 const themeIcon = $('#theme-icon');
@@ -368,6 +459,10 @@
                     themeIcon.removeClass('rotate-icon'); // Remove a classe após a transição
                 }, 300);
             });
+            setInterval(() => {
+
+            }, 500);
+
         });
 
     </script>
