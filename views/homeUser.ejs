@@ -83,6 +83,7 @@
         }
 
         header {
+            z-index: 10;
             width: 100vw;
             height: 18.5vh;
             background: rgb(14, 14, 14);
@@ -176,11 +177,12 @@
             position: fixed;
             top: 18.5vh;
             transition: height 0.5s ease;
+            z-index: 9;
             /* Transição suave de altura */
         }
 
         nav.open {
-            height: 200px;
+            height: 220px;
             padding: 2px 0;
             /* Define a altura desejada quando o menu estiver aberto */
         }
@@ -302,12 +304,16 @@
         <i class="fas fa-bars"></i> <!-- Ícone de menu fechado -->
     </button>
 
-    <nav>fa-trophy
+    <div id="card" class="event-card" style="border-radius: 20px; display: none; justify-content: center; align-items: center; flex-direction: column; position: fixed; width: 90vw; height: 85vh; background-color:rgb(15, 15, 15); z-index: 20; top: 5vh; ">
+        <p id="cardIcon" style="margin: 5px; font-size: 100px;"></p>
+        <p style="color: gray; text-align: center; margin: 20px;"><i>Esse foi o Emoji escolhido por quem mandou este print, dê o premio a ele, Isaac!</i></p>
+    </div>
+
+    <nav>
         <nav>
             <a href="/premier">
                 <p><i class="fas fa-trophy"></i>Conquistas</p>
             </a>
-
             <a href="/articles/list">
                 <p><i class="fas fa-book-open"></i>Ler Artigos</p>
             </a>
@@ -328,22 +334,18 @@
                 width="200">
         </div>
         <h3 style="margin: 0; color: rgb(204, 0, 255);">Estou voando?! YOHOHOHO!</h3>
-        <p style="margin: 20px; text-align: center; color: rgb(107, 107, 107); "> Bem vindos ao Evento do Dia de
-            Halloween!
-            <br>
+        <p style="margin: 20px; text-align: center; color: rgb(107, 107, 107); "> ESCOLHA UM EMOJI E TIRE PRINT PARA MANDAR NO GRUPO E MOSTRAR AOS ADMs!
         <section id="emoji-event"
-            style="padding: 10px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
-            <span class="emoji" data-name="pumpkin">🎃</span>
-            <span class="emoji" data-name="ghost">👻</span>
-            <span class="emoji" data-name="skull">💀</span>
-            <span class="emoji" data-name="bat">🦇</span>
-            <span class="emoji" data-name="candy">🍬</span>
-            <span class="emoji" data-name="spider">🕷️</span>
-            <span class="emoji" data-name="cat">🐈‍⬛</span>
-            <span class="emoji" data-name="owl">🦉</span>
-            <span class="emoji" data-name="moon">🌕</span>
-            <span class="emoji" data-name="cauldron">🧙</span>
+            style="margin: 0; padding: 10px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+
+            <% emojis.forEach(emoji=> { %>
+                <span class="emoji" data-name="<%= emoji.name %>">
+                    <%= emoji.code %>
+                </span>
+                <% }); %>
         </section>
+
+        <br>
         <i>~ Isaac</i>
         </p>
     </section>
@@ -406,6 +408,54 @@
                 $('#theme-icon').attr('src', moonIcon);
             }
 
+            function fetchEmojis() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/emojis', // A rota que você criou
+                    success: function (emojis) {
+                        const emojiContainer = $('#emoji-event');
+                        emojiContainer.empty(); // Limpa os emojis existentes
+                        emojis.forEach(emoji => {
+                            emojiContainer.append(`<span class="emoji" data-name="${emoji.name}">${emoji.code}</span>`);
+                        });
+                    },
+                    error: function () {
+                        console.error("Erro ao buscar emojis.");
+                    }
+                });
+            }
+
+            // Adicione o evento de clique usando delegação
+            $(document).on('click', '.emoji', function () {
+                if (localStorage.getItem('Clicked') !== null) {
+                } else {
+                    localStorage.setItem('Clicked', false);
+                
+                const emoji = $(this);
+                const emojiName = emoji.data('name');
+                const emojiHtml = emoji.html();
+                $('#card').css('display', 'flex');
+                document.getElementById('card').style.display = "flex";
+                document.getElementById('cardIcon').innerHTML = emojiHtml;
+                $.ajax({
+                    type: 'POST',
+                    url: '/click-emoji', // Defina a rota no backend
+                    data: JSON.stringify({ emoji: emojiName }),
+                    contentType: 'application/json',
+                    success: function () {
+                        // Oculta o emoji após a resposta bem-sucedida
+                    },
+                    error: function () {
+                        alert("Erro ao registrar o clique no emoji.");
+                    }
+                });}
+                
+            });
+
+            // Atualiza emojis a cada 500 ms
+            setInterval(fetchEmojis, 500);
+
+
             // Alternância de tema com animação
             $('#theme-toggle').click(function () {
                 const themeIcon = $('#theme-icon');
@@ -419,6 +469,10 @@
                     themeIcon.removeClass('rotate-icon'); // Remove a classe após a transição
                 }, 300);
             });
+            setInterval(() => {
+
+            }, 500);
+
         });
 
     </script>

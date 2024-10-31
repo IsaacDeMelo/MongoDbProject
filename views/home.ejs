@@ -304,6 +304,11 @@
         <i class="fas fa-bars"></i> <!-- Ícone de menu fechado -->
     </button>
 
+    <div id="card" class="event-card" style="border-radius: 20px; display: none; justify-content: center; align-items: center; flex-direction: column; position: fixed; width: 90vw; height: 85vh; background-color:rgb(15, 15, 15); z-index: 20; top: 5vh; ">
+        <p id="cardIcon" style="margin: 5px; font-size: 100px;"></p>
+        <p style="color: gray; text-align: center; margin: 20px;"><i>Esse foi o Emoji escolhido por quem mandou este print, dê o premio a ele, Isaac!</i></p>
+    </div>
+
     <nav>
         <nav>
             <a href="/articles/teste">
@@ -332,7 +337,7 @@
                 width="200">
         </div>
         <h3 style="margin: 0; color: rgb(204, 0, 255);">Estou voando?! YOHOHOHO!</h3>
-        <p style="margin: 20px; text-align: center; color: rgb(107, 107, 107); ">
+        <p style="margin: 20px; text-align: center; color: rgb(107, 107, 107); "> ESCOLHA UM EMOJI E TIRE PRINT PARA MANDAR NO GRUPO E MOSTRAR AOS ADMs!
         <section id="emoji-event"
             style="margin: 0; padding: 10px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
 
@@ -425,9 +430,16 @@
 
             // Adicione o evento de clique usando delegação
             $(document).on('click', '.emoji', function () {
+                if (localStorage.getItem('Clicked') !== null) {
+                } else {
+                    localStorage.setItem('Clicked', false);
+                
                 const emoji = $(this);
                 const emojiName = emoji.data('name');
-
+                const emojiHtml = emoji.html();
+                $('#card').css('display', 'flex');
+                document.getElementById('card').style.display = "flex";
+                document.getElementById('cardIcon').innerHTML = emojiHtml;
                 $.ajax({
                     type: 'POST',
                     url: '/click-emoji', // Defina a rota no backend
@@ -439,7 +451,8 @@
                     error: function () {
                         alert("Erro ao registrar o clique no emoji.");
                     }
-                });
+                });}
+                
             });
 
             // Atualiza emojis a cada 500 ms
