@@ -17,6 +17,180 @@
             transition: 1s background-color linear;
         }
 
+        :root {
+            --i: 0;
+        }
+
+        .loading-screen[move="1"] {
+            animation: disappear 2s ease-in-out forwards;
+        }
+
+        .loading-screen[move="2"] {
+            animation: reappear 2s ease-in-out forwards;
+        }
+
+        @keyframes disappear {
+            0% {
+                opacity: 100%;
+                transform: translateY(0%);
+            }
+
+            50% {
+                background-color: transparent;
+                opacity: 0%;
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        @keyframes reappear {
+            0% {
+                opacity: 0%;
+                transform: translateY(100%);
+                background-color: transparent;
+            }
+
+            50% {
+                opacity: 100%;
+            }
+
+            100% {
+                background-color: #d8e0d8;
+                transform: translateY(0%);
+            }
+        }
+
+        .solid {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            animation: spin 16s infinite linear;
+            transform-style: preserve-3d;
+        }
+
+        .solid .side {
+            position: absolute;
+            left: 0;
+            bottom: 50%;
+            border-bottom: 86.6px solid black;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            transform-origin: 50% 0%;
+        }
+
+        .solid .side:nth-child(1) {
+            transform: translateY(-9.25px) rotateY(72deg) rotateX(52.62deg);
+            border-bottom-color: rgba(134, 7, 147, 0.4);
+        }
+
+        .solid .side:nth-child(2) {
+            transform: translateY(-9.25px) rotateY(144deg) rotateX(52.62deg);
+            border-bottom-color: rgba(42, 160, 39, 0.4);
+        }
+
+        .solid .side:nth-child(3) {
+            transform: translateY(-9.25px) rotateY(216deg) rotateX(52.62deg);
+            border-bottom-color: rgba(209, 83, 84, 0.4);
+        }
+
+        .solid .side:nth-child(4) {
+            transform: translateY(-9.25px) rotateY(288deg) rotateX(52.62deg);
+            border-bottom-color: rgba(244, 202, 236, 0.4);
+        }
+
+        .solid .side:nth-child(5) {
+            transform: translateY(-9.25px) rotateY(360deg) rotateX(52.62deg);
+            border-bottom-color: rgba(73, 232, 200, 0.4);
+        }
+
+        .solid .side:nth-child(6) {
+            transform: translateY(180.9px) rotateY(468deg) rotateX(127.38deg);
+            border-bottom-color: rgba(105, 77, 3, 0.4);
+        }
+
+        .solid .side:nth-child(7) {
+            transform: translateY(180.9px) rotateY(540deg) rotateX(127.38deg);
+            border-bottom-color: rgba(255, 45, 71, 0.4);
+        }
+
+        .solid .side:nth-child(8) {
+            transform: translateY(180.9px) rotateY(612deg) rotateX(127.38deg);
+            border-bottom-color: rgba(177, 172, 3, 0.4);
+        }
+
+        .solid .side:nth-child(9) {
+            transform: translateY(180.9px) rotateY(684deg) rotateX(127.38deg);
+            border-bottom-color: rgba(175, 200, 228, 0.4);
+        }
+
+        .solid .side:nth-child(10) {
+            transform: translateY(180.9px) rotateY(756deg) rotateX(127.38deg);
+            border-bottom-color: rgba(187, 195, 141, 0.4);
+        }
+
+        .solid .side:nth-child(11) {
+            transform: translateY(43.3px) rotateY(828deg) translateZ(85.05px) rotateX(-10.81deg);
+            border-bottom-color: rgba(212, 249, 1, 0.4);
+        }
+
+        .solid .side:nth-child(12) {
+            transform: translateY(43.3px) rotateY(900deg) translateZ(85.05px) rotateX(-10.81deg);
+            border-bottom-color: rgba(85, 161, 43, 0.4);
+        }
+
+        .solid .side:nth-child(13) {
+            transform: translateY(43.3px) rotateY(972deg) translateZ(85.05px) rotateX(-10.81deg);
+            border-bottom-color: rgba(15, 209, 47, 0.4);
+        }
+
+        .solid .side:nth-child(14) {
+            transform: translateY(43.3px) rotateY(1044deg) translateZ(85.05px) rotateX(-10.81deg);
+            border-bottom-color: rgba(131, 69, 22, 0.4);
+        }
+
+        .solid .side:nth-child(15) {
+            transform: translateY(43.3px) rotateY(1116deg) translateZ(85.05px) rotateX(-10.81deg);
+            border-bottom-color: rgba(43, 13, 170, 0.4);
+        }
+
+        .solid .side:nth-child(16) {
+            transform: translateY(128.35px) rotateY(1152deg) rotateZ(180deg) translateZ(85.05px) rotateX(-10.81deg);
+            border-bottom-color: rgba(68, 85, 95, 0.4);
+        }
+
+        .solid .side:nth-child(17) {
+            transform: translateY(128.35px) rotateY(1224deg) rotateZ(180deg) translateZ(85.05px) rotateX(-10.81deg);
+            border-bottom-color: rgba(159, 76, 176, 0.4);
+        }
+
+        .solid .side:nth-child(18) {
+            transform: translateY(128.35px) rotateY(1296deg) rotateZ(180deg) translateZ(85.05px) rotateX(-10.81deg);
+            border-bottom-color: rgba(54, 95, 172, 0.4);
+        }
+
+        .solid .side:nth-child(19) {
+            transform: translateY(128.35px) rotateY(1368deg) rotateZ(180deg) translateZ(85.05px) rotateX(-10.81deg);
+            border-bottom-color: rgba(162, 92, 204, 0.4);
+        }
+
+        .solid .side:nth-child(20) {
+            transform: translateY(128.35px) rotateY(1440deg) rotateZ(180deg) translateZ(85.05px) rotateX(-10.81deg);
+            border-bottom-color: rgba(218, 1, 139, 0.4);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+
+            100% {
+                transform: rotateX(360deg) rotateY(720deg) rotateZ(1080deg);
+            }
+        }
+
+
         body {
             display: flex;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -99,9 +273,9 @@
             border-radius: 5px;
             width: 300px;
             height: 100px;
-            background-image: url(img/halloBack2.webp);
+            background-image: url(img/Background.webp);
             background-size: cover;
-            background-position: top;
+            background-position: center;
         }
 
         /* Tela de carregamento */
@@ -126,6 +300,11 @@
             animation: spin 2s linear infinite;
         }
 
+        #loading-screen img {
+            font-size: 60px;
+            animation: spin 2s linear infinite;
+        }
+
         @keyframes spin {
             from {
                 transform: rotate(0deg);
@@ -143,7 +322,7 @@
             right: 20px;
             z-index: 100;
             /* background-color: #007bff;*/
-            background-color: rgb(204, 0, 255);
+            background-color: rgb(0, 77, 192);
             border: none;
             width: 60px;
             /* Definindo um tamanho fixo para o botão */
@@ -166,7 +345,7 @@
             box-sizing: border-box;
             width: 100vw;
             /* background: linear-gradient(to right top, #007bff, #007bff);*/
-            background-color: rgb(143, 2, 179);
+            background: linear-gradient(to top, rgb(0, 54, 136), rgb(0, 77, 192));
             display: flex;
             height: 0;
             overflow: hidden;
@@ -182,7 +361,7 @@
         }
 
         nav.open {
-            height: 220px;
+            height: 300px;
             padding: 2px 0;
             /* Define a altura desejada quando o menu estiver aberto */
         }
@@ -253,9 +432,9 @@
             }
 
             header {
-                background-image: url(img/halloBack2.webp);
+                background-image: url(img/Background.webp);
                 background-size: cover;
-                background-position: top;
+                background-position: center;
                 box-shadow: 0px -20px 20px 20px black;
             }
 
@@ -296,30 +475,25 @@
 
 
     <div id="loading-screen">
-        <img src="https://media.tenor.com/3_KCo0AqiAwAAAAi/shadowkitty-shadow.gif" width="150">
+        <img src="https://cdn-icons-png.freepik.com/512/4204/4204458.png" width="150">
+        <!--<img src="https://media.tenor.com/3_KCo0AqiAwAAAAi/shadowkitty-shadow.gif" width="150">-->
     </div>
 
     <!-- Botão do menu com ícone -->
     <button id="menu-toggle">
         <i class="fas fa-bars"></i> <!-- Ícone de menu fechado -->
     </button>
-
-    <div id="card" class="event-card" style="border-radius: 20px; display: none; justify-content: center; align-items: center; flex-direction: column; position: fixed; width: 90vw; height: 85vh; background-color:rgb(15, 15, 15); z-index: 20; top: 5vh; ">
-        <p id="cardIcon" style="margin: 5px; font-size: 100px;"></p>
-        <p style="color: gray; text-align: center; margin: 20px;"><i>Esse foi o Emoji escolhido por quem mandou este print, dê o premio a ele, Isaac!</i></p>
-    </div>
-
     <nav>
         <nav>
-            <a href="/premier">
+            <a href="#">
                 <p><i class="fas fa-trophy"></i>Conquistas</p>
             </a>
-            <a href="/articles/list">
+            <a href="#">
                 <p><i class="fas fa-book-open"></i>Ler Artigos</p>
             </a>
 
-            <a class="coming-soon" href="#coming-soon">
-                <p><i class="fas fa-coins"></i>Recompensas (Em Breve)</p>
+            <a class="#" href="#coming-soon">
+                <p><i class="fas fa-coins"></i>Recompensas</p>
             </a>
         </nav>
 
@@ -328,31 +502,50 @@
     <section
         style="padding: 10px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
         <!-- <img src="https://media.tenor.com/CHKoOOKvzx4AAAAi/one-piece-franky.gif" width="200">-->
-        <div style="width: 100%; height: 300px; position: relative">
+        <div
+            style="width: 100%; height: 250px; position: relative; display: flex; justify-content: center; align-items: center;">
             <img id="brook" style="position: absolute; transition: 2s all;"
-                src="https://pre00.deviantart.net/d558/th/pre/i/2015/017/a/b/brook_chibi___render_by_sherryflox-d8e8qay.png"
+                src="https://64.media.tumblr.com/2e4f63044d2a4c42414f502043e6d91c/tumblr_pxf35gIMcg1rzu84po1_400.png"
                 width="200">
         </div>
-        <h3 style="margin: 0; color: rgb(204, 0, 255);">Estou voando?! YOHOHOHO!</h3>
-        <p style="margin: 20px; text-align: center; color: rgb(107, 107, 107); "> ESCOLHA UM EMOJI E TIRE PRINT PARA MANDAR NO GRUPO E MOSTRAR AOS ADMs!
-        <section id="emoji-event"
-            style="margin: 0; padding: 10px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+        <% try { %>
+            <h3 id="saudacao" style="margin: 0; color: rgb(0, 77, 192); font-weight: 200;"></h3>
+            <p style="color: #333333">Estamos trabalhando na melhor otimização para o Desktop. Aguardem atualizações.
+            </p>
+            <script>
+                function definirSaudacao() {
+                    const saudacao = document.getElementById('saudacao');
+                    // Ajustando a hora para o fuso horário de Brasília (GMT-3)
+                    const horarioBrasilia = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+                    const hora = new Date(horarioBrasilia).getHours();
 
-            <% emojis.forEach(emoji=> { %>
-                <span class="emoji" data-name="<%= emoji.name %>">
-                    <%= emoji.code %>
-                </span>
-                <% }); %>
-        </section>
+                    if (hora >= 6 && hora < 18) {
+                        saudacao.textContent = "Oi! Bom dia!";
+                    } else {
+                        saudacao.textContent = "Oi! Boa noite!";
+                    }
+                }
+                // Atualiza a saudação a cada minuto
+                definirSaudacao();
+                setInterval(definirSaudacao, 60000);
+            </script>
 
-        <br>
-        <i>~ Isaac</i>
-        </p>
+            <% } catch (error) { } %>
+                <p style="margin: 20px; text-align: center; color: rgb(107, 107, 107); ">
+                <section id="emoji-event"
+                    style="margin: 0; padding: 10px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+
+                    <% emojis.forEach(emoji=> { %>
+                        <span class="emoji" data-name="<%= emoji.name %>">
+                            <%= emoji.code %>
+                        </span>
+                        <% }); %>
+                </section>
+
+                <br>
+                </p>
     </section>
-    <img id="potato"
-        src="https://th.bing.com/th/id/R.a421b30aaf8b7ef06307f766f17e7c42?rik=TI%2fHk2eQjf8Azw&pid=ImgRaw&r=0"
-        style="position: fixed; bottom: 0px;">
-    <footer style="background-color: rgb(143, 2, 179);">
+    <footer style="background-color: rgb(0, 54, 136);">
         <i>
             <p style="font-size: 12.5px; ">&copy; 2024 Hoard Piece - Dev. Isaac Ângelo</p>
         </i>
@@ -367,32 +560,30 @@
                     brook.style.top = "20px";
                 }, 1000)
                 setTimeout(() => {
-                    brook.style.top = "50px";
+                    brook.style.top = "80px";
                 }, 2000)
                 setTimeout(() => {
                     brook.style.top = "20px";
                 }, 3000)
             }, 5000);
-            setInterval(() => {
-                brook.style.left = "30%";
-                setTimeout(() => {
-                    brook.style.left = "0%";
-                }, 1000)
-            }, 2000);
             setTimeout(() => {
                 $("#loading-screen").css('display', 'none');
             }, 3000);
             let menuOpen = false;
             $('#menu-toggle').click(function () {
-                menuOpen = !menuOpen;
-
-                // Alterna entre o ícone de barras (menu fechado) e o ícone de "x" (menu aberto)
-                if (menuOpen) {
-                    $('#menu-toggle i').removeClass('fa-bars').addClass('fa-times'); // Ícone de fechar
-                    $('nav').addClass('open'); // Adiciona a classe "open" ao menu
+                if (true) {
+                    alert("Em Manutenção.")
                 } else {
-                    $('#menu-toggle i').removeClass('fa-times').addClass('fa-bars'); // Ícone de abrir
-                    $('nav').removeClass('open'); // Remove a classe "open" do menu
+                    menuOpen = !menuOpen;
+
+                    // Alterna entre o ícone de barras (menu fechado) e o ícone de "x" (menu aberto)
+                    if (menuOpen) {
+                        $('#menu-toggle i').removeClass('fa-bars').addClass('fa-times'); // Ícone de fechar
+                        $('nav').addClass('open'); // Adiciona a classe "open" ao menu
+                    } else {
+                        $('#menu-toggle i').removeClass('fa-times').addClass('fa-bars'); // Ícone de abrir
+                        $('nav').removeClass('open'); // Remove a classe "open" do menu
+                    }
                 }
             });
             // Alternância de tema
@@ -427,29 +618,33 @@
 
             // Adicione o evento de clique usando delegação
             $(document).on('click', '.emoji', function () {
-                if (localStorage.getItem('Clicked') !== null) {
+                if (true) {
+                    alert("Em Manutenção.")
                 } else {
-                    localStorage.setItem('Clicked', false);
-                
-                const emoji = $(this);
-                const emojiName = emoji.data('name');
-                const emojiHtml = emoji.html();
-                $('#card').css('display', 'flex');
-                document.getElementById('card').style.display = "flex";
-                document.getElementById('cardIcon').innerHTML = emojiHtml;
-                $.ajax({
-                    type: 'POST',
-                    url: '/click-emoji', // Defina a rota no backend
-                    data: JSON.stringify({ emoji: emojiName }),
-                    contentType: 'application/json',
-                    success: function () {
-                        // Oculta o emoji após a resposta bem-sucedida
-                    },
-                    error: function () {
-                        alert("Erro ao registrar o clique no emoji.");
+                    if (localStorage.getItem('Clicked') !== null) {
+                    } else {
+                        localStorage.setItem('Clicked', false);
+
+                        const emoji = $(this);
+                        const emojiName = emoji.data('name');
+                        const emojiHtml = emoji.html();
+                        $('#card').css('display', 'flex');
+                        document.getElementById('card').style.display = "flex";
+                        document.getElementById('cardIcon').innerHTML = emojiHtml;
+                        $.ajax({
+                            type: 'POST',
+                            url: '/click-emoji', // Defina a rota no backend
+                            data: JSON.stringify({ emoji: emojiName }),
+                            contentType: 'application/json',
+                            success: function () {
+                                // Oculta o emoji após a resposta bem-sucedida
+                            },
+                            error: function () {
+                                alert("Erro ao registrar o clique no emoji.");
+                            }
+                        });
                     }
-                });}
-                
+                }
             });
 
             // Atualiza emojis a cada 500 ms
